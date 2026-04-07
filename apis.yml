@@ -4,8 +4,7 @@ url: >-
 apis:
   - aid: betsolutions:betsolutions
     name: BetSolutions
-    tags:
-      - API
+    tags: []
     humanURL: ' https://docs.betsolutions.com/'
     properties:
       - url: ' https://docs.betsolutions.com/'
@@ -19,8 +18,8 @@ apis:
       process.
 name: BetSolutions
 tags:
-  - Casinos
   - Betting
+  - Casinos
 type: Contract
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
