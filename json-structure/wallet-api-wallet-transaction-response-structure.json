@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/betsolutions/refs/heads/main/json-structure/wallet-api-wallet-transaction-response-structure.json",
+  "name": "WalletTransactionResponse",
+  "description": "Response for wallet deposit or withdrawal operations.",
+  "type": "object",
+  "properties": {
+    "success": {
+      "type": "boolean",
+      "description": "Whether the transaction succeeded.",
+      "example": true
+    },
+    "transactionId": {
+      "type": "string",
+      "description": "The transaction identifier.",
+      "example": "txn-abc123"
+    },
+    "balance": {
+      "type": "double",
+      "description": "Updated wallet balance after the transaction.",
+      "example": 150.0
+    },
+    "currency": {
+      "type": "string",
+      "description": "ISO 4217 three-letter currency code.",
+      "example": "USD"
+    }
+  }
+}

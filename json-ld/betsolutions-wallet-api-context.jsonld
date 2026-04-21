@@ -1,0 +1,116 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "bs": "https://betsolutions.com/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "DepositRequest": "bs:DepositRequest",
+    "PlayerInfoRequest": "bs:PlayerInfoRequest",
+    "WalletTransactionResponse": "bs:WalletTransactionResponse",
+    "PlayerInfoResponse": "bs:PlayerInfoResponse",
+    "GameListRequest": "bs:GameListRequest",
+    "ErrorResponse": "bs:ErrorResponse",
+    "BalanceRequest": "bs:BalanceRequest",
+    "GameListResponse": "bs:GameListResponse",
+    "WithdrawRequest": "bs:WithdrawRequest",
+    "AuthResponse": "bs:AuthResponse",
+    "BalanceResponse": "bs:BalanceResponse",
+    "Game": "bs:Game",
+    "merchantId": {
+      "@id": "bs:merchantId",
+      "@type": "xsd:string"
+    },
+    "playerId": {
+      "@id": "bs:playerId",
+      "@type": "xsd:string"
+    },
+    "amount": {
+      "@id": "bs:amount",
+      "@type": "xsd:double"
+    },
+    "currency": {
+      "@id": "bs:currency",
+      "@type": "xsd:string"
+    },
+    "transactionId": {
+      "@id": "bs:transactionId",
+      "@type": "xsd:string"
+    },
+    "hash": {
+      "@id": "bs:hash",
+      "@type": "xsd:string"
+    },
+    "success": {
+      "@id": "bs:success",
+      "@type": "xsd:boolean"
+    },
+    "balance": {
+      "@id": "bs:balance",
+      "@type": "xsd:double"
+    },
+    "userId": {
+      "@id": "bs:userId",
+      "@type": "xsd:string"
+    },
+    "userName": {
+      "@id": "bs:userName",
+      "@type": "xsd:string"
+    },
+    "firstName": {
+      "@id": "bs:firstName",
+      "@type": "xsd:string"
+    },
+    "lastName": {
+      "@id": "bs:lastName",
+      "@type": "xsd:string"
+    },
+    "email": "schema:email",
+    "countryCode": {
+      "@id": "bs:countryCode",
+      "@type": "xsd:string"
+    },
+    "errorCode": {
+      "@id": "bs:errorCode",
+      "@type": "xsd:integer"
+    },
+    "errorMessage": {
+      "@id": "bs:errorMessage",
+      "@type": "xsd:string"
+    },
+    "products": {
+      "@id": "bs:products",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "token": {
+      "@id": "bs:token",
+      "@type": "xsd:string"
+    },
+    "gameId": {
+      "@id": "bs:gameId",
+      "@type": "xsd:string"
+    },
+    "productId": {
+      "@id": "bs:productId",
+      "@type": "xsd:integer"
+    },
+    "name": "schema:name",
+    "hasFreePay": {
+      "@id": "bs:hasFreePay",
+      "@type": "xsd:boolean"
+    },
+    "launchUrl": {
+      "@id": "bs:launchUrl",
+      "@type": "xsd:string"
+    },
+    "rtp": {
+      "@id": "bs:rtp",
+      "@type": "xsd:double"
+    },
+    "rakePercent": {
+      "@id": "bs:rakePercent",
+      "@type": "xsd:double"
+    }
+  }
+}

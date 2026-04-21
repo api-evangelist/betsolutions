@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/betsolutions/refs/heads/main/json-schema/wallet-api-player-info-response-schema.json",
+  "title": "PlayerInfoResponse",
+  "description": "Player profile and account information.",
+  "type": "object",
+  "properties": {
+    "success": {
+      "type": "boolean",
+      "description": "Whether the request succeeded.",
+      "example": true
+    },
+    "userId": {
+      "type": "string",
+      "description": "Unique player user ID.",
+      "example": "player-500123"
+    },
+    "userName": {
+      "type": "string",
+      "description": "Player's username.",
+      "example": "jsmith"
+    },
+    "firstName": {
+      "type": "string",
+      "description": "Player's first name.",
+      "example": "Jane"
+    },
+    "lastName": {
+      "type": "string",
+      "description": "Player's last name.",
+      "example": "Smith"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Player's email address.",
+      "example": "jsmith@example.com"
+    },
+    "countryCode": {
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2 country code.",
+      "example": "US"
+    },
+    "currency": {
+      "type": "string",
+      "description": "ISO 4217 currency code for the player's account.",
+      "example": "USD"
+    }
+  }
+}

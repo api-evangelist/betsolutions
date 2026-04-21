@@ -1,0 +1,6 @@
+{
+  "success": true,
+  "transactionId": "txn-abc123",
+  "balance": 150.0,
+  "currency": "USD"
+}

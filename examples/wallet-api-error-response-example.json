@@ -1,0 +1,5 @@
+{
+  "success": false,
+  "errorCode": 400,
+  "errorMessage": "Invalid hash signature."
+}

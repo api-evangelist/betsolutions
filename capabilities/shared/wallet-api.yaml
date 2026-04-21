@@ -1,0 +1,267 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "BetSolutions Wallet API"
+  description: >-
+    Two-mode wallet integration for casino platforms with transfer and seamless
+    wallet modes, player authentication, game list retrieval, and player information.
+  tags:
+    - BetSolutions
+    - Casino
+    - Wallet
+    - Gaming
+    - Payments
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+binds:
+  - namespace: env
+    keys:
+      BETSOLUTIONS_MERCHANT_ID: BETSOLUTIONS_MERCHANT_ID
+      BETSOLUTIONS_SECRET_KEY: BETSOLUTIONS_SECRET_KEY
+
+capability:
+  consumes:
+    - type: http
+      namespace: betsolutions-wallet
+      baseUri: https://api.betsolutions.com/v1
+      description: "BetSolutions Casino API for wallet management and game integration."
+      authentication:
+        type: apikey
+        key: hash
+        value: "{{BETSOLUTIONS_HASH}}"
+        placement: query
+      resources:
+        - name: wallet
+          path: /wallet
+          description: "Wallet operations for casino players"
+          operations:
+            - name: authenticate-player
+              method: GET
+              description: "Authenticate a player and generate a private token"
+              inputParameters:
+                - name: merchantId
+                  in: query
+                  type: string
+                  required: true
+                  description: "Merchant unique identifier"
+                - name: token
+                  in: query
+                  type: string
+                  required: true
+                  description: "Public player token"
+                - name: hash
+                  in: query
+                  type: string
+                  required: true
+                  description: "SHA-256 authentication hash"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: deposit-funds
+              method: POST
+              description: "Deposit funds to a player's wallet (transfer mode)"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  merchantId: "{{tools.merchantId}}"
+                  playerId: "{{tools.playerId}}"
+                  amount: "{{tools.amount}}"
+                  currency: "{{tools.currency}}"
+                  transactionId: "{{tools.transactionId}}"
+                  hash: "{{tools.hash}}"
+            - name: withdraw-funds
+              method: POST
+              description: "Withdraw funds from a player's wallet (transfer mode)"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  merchantId: "{{tools.merchantId}}"
+                  playerId: "{{tools.playerId}}"
+                  amount: "{{tools.amount}}"
+                  currency: "{{tools.currency}}"
+                  transactionId: "{{tools.transactionId}}"
+                  hash: "{{tools.hash}}"
+            - name: get-balance
+              method: POST
+              description: "Retrieve a player's current wallet balance"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  merchantId: "{{tools.merchantId}}"
+                  playerId: "{{tools.playerId}}"
+                  hash: "{{tools.hash}}"
+        - name: game
+          path: /game
+          description: "Game management and listing"
+          operations:
+            - name: get-game-list
+              method: POST
+              description: "Retrieve available games with product metadata"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  merchantId: "{{tools.merchantId}}"
+                  hash: "{{tools.hash}}"
+        - name: player
+          path: /player
+          description: "Player information retrieval"
+          operations:
+            - name: get-player-info
+              method: POST
+              description: "Get player profile details"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  merchantId: "{{tools.merchantId}}"
+                  playerId: "{{tools.playerId}}"
+                  hash: "{{tools.hash}}"
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: betsolutions-wallet-rest
+      resources:
+        - path: /v1/wallet/balance
+          name: wallet-balance
+          description: "Get player wallet balance"
+          operations:
+            - method: POST
+              name: get-balance
+              description: "Retrieve player balance"
+              call: "betsolutions-wallet.get-balance"
+              with:
+                merchantId: "rest.merchantId"
+                playerId: "rest.playerId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/games
+          name: games
+          description: "Get available games"
+          operations:
+            - method: GET
+              name: get-game-list
+              description: "List available casino games"
+              call: "betsolutions-wallet.get-game-list"
+              with:
+                merchantId: "rest.merchantId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/players/{playerId}
+          name: player
+          description: "Get player information"
+          operations:
+            - method: GET
+              name: get-player-info
+              description: "Get player profile"
+              call: "betsolutions-wallet.get-player-info"
+              with:
+                playerId: "rest.playerId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: betsolutions-wallet-mcp
+      transport: http
+      tools:
+        - name: get-player-balance
+          description: "Get the current wallet balance for a casino player"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "betsolutions-wallet.get-balance"
+          with:
+            merchantId: "tools.merchantId"
+            playerId: "tools.playerId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: deposit-funds
+          description: "Deposit funds to a casino player's wallet account"
+          hints:
+            readOnly: false
+            destructive: false
+          call: "betsolutions-wallet.deposit-funds"
+          with:
+            merchantId: "tools.merchantId"
+            playerId: "tools.playerId"
+            amount: "tools.amount"
+            currency: "tools.currency"
+            transactionId: "tools.transactionId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: withdraw-funds
+          description: "Withdraw funds from a casino player's wallet account"
+          hints:
+            readOnly: false
+            destructive: false
+          call: "betsolutions-wallet.withdraw-funds"
+          with:
+            merchantId: "tools.merchantId"
+            playerId: "tools.playerId"
+            amount: "tools.amount"
+            currency: "tools.currency"
+            transactionId: "tools.transactionId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-game-list
+          description: "Get the list of available casino games with metadata including RTP and rake percentages"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "betsolutions-wallet.get-game-list"
+          with:
+            merchantId: "tools.merchantId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-player-info
+          description: "Get player profile information including name, email, country, and currency"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "betsolutions-wallet.get-player-info"
+          with:
+            merchantId: "tools.merchantId"
+            playerId: "tools.playerId"
+          outputParameters:
+            - type: object
+              mapping: "$."

@@ -1,0 +1,8 @@
+{
+  "merchantId": "merchant-001",
+  "playerId": "player-500123",
+  "amount": 50.0,
+  "currency": "USD",
+  "transactionId": "txn-abc123",
+  "hash": "a1b2c3d4..."
+}

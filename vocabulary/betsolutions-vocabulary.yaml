@@ -1,0 +1,214 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "BetSolutions"
+  description: >-
+    Unified vocabulary for the BetSolutions Casino API covering wallet management,
+    player operations, and game catalog across operational and capability dimensions.
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+operational:
+  apis:
+    - namespace: betsolutions-wallet
+      version: "1.0.0"
+      baseUrl: https://api.betsolutions.com/v1
+      status: active
+    - namespace: betsolutions-player
+      version: "1.0.0"
+      baseUrl: https://api.betsolutions.com/v1
+      status: active
+
+  resources:
+    - name: wallet
+      api: betsolutions-wallet
+      actions:
+        - deposit
+        - withdraw
+        - get-balance
+        - authenticate
+    - name: games
+      api: betsolutions-wallet
+      actions:
+        - list
+    - name: players
+      api: betsolutions-wallet
+      actions:
+        - get
+
+  actions:
+    - name: deposit
+      httpMethod: POST
+      pattern: write
+    - name: withdraw
+      httpMethod: POST
+      pattern: write
+    - name: get-balance
+      httpMethod: POST
+      pattern: read
+    - name: authenticate
+      httpMethod: GET
+      pattern: read
+    - name: list
+      httpMethod: POST
+      pattern: read
+    - name: get
+      httpMethod: POST
+      pattern: read
+
+  schemas:
+    core:
+      - name: WalletTransactionResponse
+        api: betsolutions-wallet
+        description: Response for wallet deposit or withdrawal operations
+        keyProperties:
+          - success
+          - transactionId
+          - balance
+          - currency
+      - name: BalanceResponse
+        api: betsolutions-wallet
+        description: Player wallet balance response
+        keyProperties:
+          - success
+          - playerId
+          - balance
+          - currency
+      - name: PlayerInfoResponse
+        api: betsolutions-wallet
+        description: Player profile and account information
+        keyProperties:
+          - userId
+          - userName
+          - email
+          - countryCode
+          - currency
+      - name: Game
+        api: betsolutions-wallet
+        description: Casino game with product metadata
+        keyProperties:
+          - gameId
+          - productId
+          - name
+          - rtp
+          - rakePercent
+
+  parameters:
+    identifiers:
+      - name: merchantId
+        description: Unique merchant identifier
+      - name: playerId
+        description: Unique player identifier
+      - name: transactionId
+        description: Unique transaction identifier for idempotency
+    authentication:
+      - name: hash
+        description: SHA-256 HMAC hash of concatenated parameters with merchant secret key
+    filters:
+      - name: currency
+        description: ISO 4217 three-letter currency code
+      - name: countryCode
+        description: ISO 3166-1 alpha-2 country code
+
+  enums:
+    productIds:
+      - 1 (Table Games)
+      - 2 (Slots)
+      - 3 (Provably Fair)
+    currencies:
+      - USD
+      - EUR
+      - GBP
+
+  authentication:
+    schemes:
+      - type: SHA-256 Hash
+        description: Parameters concatenated with pipe (|) separator and signed with merchant secret key using SHA-256 algorithm
+        parameter: hash
+
+capability:
+  workflows:
+    - name: Casino Platform
+      file: capabilities/casino-platform.yaml
+      description: Wallet management, game catalog, and player operations for casino operators
+      apisComined:
+        - betsolutions-wallet
+      toolCount: 5
+      personas:
+        - Casino Operator
+        - Platform Developer
+
+  personas:
+    - id: casino-operator
+      name: Casino Operator
+      description: Online casino operator integrating BetSolutions into their gaming platform
+      workflows:
+        - Casino Platform
+    - id: platform-developer
+      name: Platform Developer
+      description: Developer building casino platform features using the BetSolutions API
+      workflows:
+        - Casino Platform
+
+  domains:
+    - name: Wallet Management
+      description: Player fund deposits, withdrawals, and balance operations
+      resources:
+        - wallet
+    - name: Game Catalog
+      description: Available casino games and product metadata
+      resources:
+        - games
+    - name: Player Management
+      description: Player profile and account information
+      resources:
+        - players
+
+  namespaces:
+    - namespace: betsolutions-wallet
+      type: consumed
+    - namespace: casino-platform-api
+      type: rest-exposed
+      port: 8080
+    - namespace: casino-platform-mcp
+      type: mcp-exposed
+      port: 9090
+
+  binds:
+    - name: BETSOLUTIONS_MERCHANT_ID
+      description: BetSolutions merchant identifier
+      workflows:
+        - Casino Platform
+    - name: BETSOLUTIONS_SECRET_KEY
+      description: BetSolutions merchant secret key for SHA-256 hash signing
+      workflows:
+        - Casino Platform
+
+crossReference:
+  - resource: wallet
+    operations:
+      - deposit-funds
+      - withdraw-funds
+      - get-balance
+      - authenticate-player
+    workflows:
+      - Casino Platform
+    personas:
+      - Casino Operator
+      - Platform Developer
+  - resource: games
+    operations:
+      - get-game-list
+    workflows:
+      - Casino Platform
+    personas:
+      - Casino Operator
+      - Platform Developer
+  - resource: players
+    operations:
+      - get-player-info
+    workflows:
+      - Casino Platform
+    personas:
+      - Casino Operator
+      - Platform Developer

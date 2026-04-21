@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/betsolutions/refs/heads/main/json-schema/wallet-api-game-list-request-schema.json",
+  "title": "GameListRequest",
+  "description": "Request body for retrieving the available game list.",
+  "type": "object",
+  "properties": {
+    "merchantId": {
+      "type": "string",
+      "description": "The merchant's unique identifier.",
+      "example": "merchant-001"
+    },
+    "hash": {
+      "type": "string",
+      "description": "SHA-256 hash for request authentication.",
+      "example": "d4e5f6g7..."
+    }
+  },
+  "required": [
+    "merchantId",
+    "hash"
+  ]
+}

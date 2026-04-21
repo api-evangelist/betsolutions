@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/betsolutions/refs/heads/main/json-structure/wallet-api-error-response-structure.json",
+  "name": "ErrorResponse",
+  "description": "Error response returned when a request fails.",
+  "type": "object",
+  "properties": {
+    "success": {
+      "type": "boolean",
+      "description": "Always false for error responses.",
+      "example": false
+    },
+    "errorCode": {
+      "type": "int32",
+      "description": "Numeric error code.",
+      "example": 400
+    },
+    "errorMessage": {
+      "type": "string",
+      "description": "Human-readable error description.",
+      "example": "Invalid hash signature."
+    }
+  }
+}

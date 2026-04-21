@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/betsolutions/refs/heads/main/json-schema/wallet-api-withdraw-request-schema.json",
+  "title": "WithdrawRequest",
+  "description": "Request body for withdrawing funds from a player's wallet.",
+  "type": "object",
+  "properties": {
+    "merchantId": {
+      "type": "string",
+      "description": "The merchant's unique identifier.",
+      "example": "merchant-001"
+    },
+    "playerId": {
+      "type": "string",
+      "description": "The player's unique identifier.",
+      "example": "player-500123"
+    },
+    "amount": {
+      "type": "number",
+      "format": "double",
+      "description": "Amount to withdraw in the player's currency.",
+      "example": 25.0
+    },
+    "currency": {
+      "type": "string",
+      "description": "ISO 4217 three-letter currency code.",
+      "example": "USD"
+    },
+    "transactionId": {
+      "type": "string",
+      "description": "Unique transaction identifier to prevent duplicate processing.",
+      "example": "txn-def456"
+    },
+    "hash": {
+      "type": "string",
+      "description": "SHA-256 hash for request authentication.",
+      "example": "b2c3d4e5..."
+    }
+  },
+  "required": [
+    "merchantId",
+    "playerId",
+    "amount",
+    "currency",
+    "transactionId",
+    "hash"
+  ]
+}

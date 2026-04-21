@@ -1,0 +1,276 @@
+rules:
+
+  # INFO / METADATA
+  info-title-required:
+    description: API info must have a title.
+    severity: error
+    given: "$.info"
+    then:
+      field: title
+      function: truthy
+
+  info-title-prefix:
+    description: API title should begin with "BetSolutions".
+    severity: warn
+    given: "$.info.title"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^BetSolutions"
+
+  info-description-required:
+    description: API info must have a description.
+    severity: error
+    given: "$.info"
+    then:
+      field: description
+      function: truthy
+
+  info-version-required:
+    description: API info must have a version.
+    severity: error
+    given: "$.info"
+    then:
+      field: version
+      function: truthy
+
+  # OPENAPI VERSION
+  openapi-version-3:
+    description: All specs must use OpenAPI 3.0.x.
+    severity: error
+    given: "$"
+    then:
+      field: openapi
+      function: pattern
+      functionOptions:
+        match: "^3\\.0\\."
+
+  # SERVERS
+  servers-defined:
+    description: At least one server must be defined.
+    severity: error
+    given: "$"
+    then:
+      field: servers
+      function: truthy
+
+  servers-https:
+    description: Server URLs must use HTTPS.
+    severity: error
+    given: "$.servers[*].url"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://"
+
+  servers-betsolutions-domain:
+    description: Server URLs should use a betsolutions.com domain.
+    severity: warn
+    given: "$.servers[*].url"
+    then:
+      function: pattern
+      functionOptions:
+        match: "betsolutions\\.com"
+
+  # PATHS - NAMING CONVENTIONS
+  paths-kebab-case:
+    description: Path segments should use kebab-case.
+    severity: warn
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(/[a-z0-9{}-]+)+$"
+
+  paths-no-trailing-slash:
+    description: Paths must not have a trailing slash.
+    severity: error
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "/$"
+
+  # OPERATIONS
+  operation-summary-required:
+    description: All operations must have a summary.
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete,options,head]"
+    then:
+      field: summary
+      function: truthy
+
+  operation-summary-prefix:
+    description: Operation summaries should start with "BetSolutions".
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^BetSolutions [A-Z]"
+
+  operation-description-required:
+    description: All operations must have a description.
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete,options,head]"
+    then:
+      field: description
+      function: truthy
+
+  operation-id-required:
+    description: All operations must have an operationId.
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete,options,head]"
+    then:
+      field: operationId
+      function: truthy
+
+  operation-id-camel-case:
+    description: operationId should use camelCase.
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]+$"
+
+  operation-tags-required:
+    description: All operations must have at least one tag.
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete,options,head]"
+    then:
+      field: tags
+      function: truthy
+
+  # REQUEST BODIES
+  post-request-body-required:
+    description: POST operations should have a request body.
+    severity: warn
+    given: "$.paths[*].post"
+    then:
+      field: requestBody
+      function: truthy
+
+  request-body-json:
+    description: Request bodies should use application/json content type.
+    severity: warn
+    given: "$.paths[*][post,put,patch].requestBody.content"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          required: ['application/json']
+
+  # PARAMETERS
+  parameter-description-required:
+    description: All parameters must have a description.
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].parameters[*]"
+    then:
+      field: description
+      function: truthy
+
+  hash-parameter-required:
+    description: BetSolutions API requires SHA-256 hash parameter for authentication.
+    severity: info
+    given: "$.paths[*][post].requestBody.content['application/json'].schema.properties"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          required: ['hash']
+
+  # RESPONSES
+  response-success-required:
+    description: Operations must define at least one 2xx success response.
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete].responses"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          oneOf:
+            - required: ['200']
+            - required: ['201']
+
+  response-description-required:
+    description: All responses must have a description.
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete].responses[*]"
+    then:
+      field: description
+      function: truthy
+
+  response-json-content:
+    description: Success responses should return application/json content.
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].responses['200'].content"
+    then:
+      function: truthy
+
+  response-401-defined:
+    description: Operations should define a 401 unauthorized response.
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].responses"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          required: ['401']
+
+  # SCHEMAS
+  schema-description-required:
+    description: Top-level schemas should have a description.
+    severity: warn
+    given: "$.components.schemas[*]"
+    then:
+      field: description
+      function: truthy
+
+  schema-type-required:
+    description: Schema definitions should have an explicit type.
+    severity: warn
+    given: "$.components.schemas[*]"
+    then:
+      field: type
+      function: truthy
+
+  schema-success-flag:
+    description: BetSolutions response schemas should include a success boolean field.
+    severity: info
+    given: "$.components.schemas[*].properties"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          oneOf:
+            - required: ['success']
+            - not:
+                required: []
+
+  # SECURITY
+  security-scheme-defined:
+    description: Security schemes must be defined in components.
+    severity: error
+    given: "$.components.securitySchemes"
+    then:
+      function: truthy
+
+  # HTTP METHOD CONVENTIONS
+  get-no-request-body:
+    description: GET operations must not have a request body.
+    severity: error
+    given: "$.paths[*].get"
+    then:
+      field: requestBody
+      function: falsy
+
+  # GENERAL QUALITY
+  no-empty-descriptions:
+    description: Descriptions must not be empty strings.
+    severity: warn
+    given: "$..description"
+    then:
+      function: pattern
+      functionOptions:
+        match: ".+"

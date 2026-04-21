@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/betsolutions/refs/heads/main/json-structure/wallet-api-balance-response-structure.json",
+  "name": "BalanceResponse",
+  "description": "Player wallet balance response.",
+  "type": "object",
+  "properties": {
+    "success": {
+      "type": "boolean",
+      "description": "Whether the request succeeded.",
+      "example": true
+    },
+    "playerId": {
+      "type": "string",
+      "description": "The player's unique identifier.",
+      "example": "player-500123"
+    },
+    "balance": {
+      "type": "double",
+      "description": "Current wallet balance.",
+      "example": 125.0
+    },
+    "currency": {
+      "type": "string",
+      "description": "ISO 4217 three-letter currency code.",
+      "example": "USD"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/betsolutions/refs/heads/main/json-structure/wallet-api-auth-response-structure.json",
+  "name": "AuthResponse",
+  "description": "Authentication response with private player token.",
+  "type": "object",
+  "properties": {
+    "success": {
+      "type": "boolean",
+      "description": "Whether authentication succeeded.",
+      "example": true
+    },
+    "token": {
+      "type": "string",
+      "description": "Private player token for subsequent API calls.",
+      "example": "priv-token-xyz789"
+    },
+    "playerId": {
+      "type": "string",
+      "description": "Unique player identifier.",
+      "example": "player-500123"
+    }
+  }
+}

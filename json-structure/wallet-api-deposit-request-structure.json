@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/betsolutions/refs/heads/main/json-structure/wallet-api-deposit-request-structure.json",
+  "name": "DepositRequest",
+  "description": "Request body for depositing funds to a player's wallet.",
+  "type": "object",
+  "properties": {
+    "merchantId": {
+      "type": "string",
+      "description": "The merchant's unique identifier.",
+      "example": "merchant-001"
+    },
+    "playerId": {
+      "type": "string",
+      "description": "The player's unique identifier.",
+      "example": "player-500123"
+    },
+    "amount": {
+      "type": "double",
+      "description": "Amount to deposit in the player's currency.",
+      "example": 50.0
+    },
+    "currency": {
+      "type": "string",
+      "description": "ISO 4217 three-letter currency code.",
+      "example": "USD"
+    },
+    "transactionId": {
+      "type": "string",
+      "description": "Unique transaction identifier to prevent duplicate processing.",
+      "example": "txn-abc123"
+    },
+    "hash": {
+      "type": "string",
+      "description": "SHA-256 hash for request authentication.",
+      "example": "a1b2c3d4..."
+    }
+  },
+  "required": [
+    "merchantId",
+    "playerId",
+    "amount",
+    "currency",
+    "transactionId",
+    "hash"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/betsolutions/refs/heads/main/json-structure/wallet-api-game-list-response-structure.json",
+  "name": "GameListResponse",
+  "description": "Response containing available games and product metadata.",
+  "type": "object",
+  "properties": {
+    "success": {
+      "type": "boolean",
+      "description": "Whether the request succeeded.",
+      "example": true
+    },
+    "products": {
+      "type": "array",
+      "description": "Array of available game products.",
+      "items": {
+        "$ref": "#/components/schemas/Game"
+      }
+    }
+  }
+}

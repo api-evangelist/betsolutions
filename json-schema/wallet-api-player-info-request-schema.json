@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/betsolutions/refs/heads/main/json-schema/wallet-api-player-info-request-schema.json",
+  "title": "PlayerInfoRequest",
+  "description": "Request body for retrieving player information.",
+  "type": "object",
+  "properties": {
+    "merchantId": {
+      "type": "string",
+      "description": "The merchant's unique identifier.",
+      "example": "merchant-001"
+    },
+    "playerId": {
+      "type": "string",
+      "description": "The player's unique identifier.",
+      "example": "player-500123"
+    },
+    "hash": {
+      "type": "string",
+      "description": "SHA-256 hash for request authentication.",
+      "example": "e5f6g7h8..."
+    }
+  },
+  "required": [
+    "merchantId",
+    "playerId",
+    "hash"
+  ]
+}

@@ -1,0 +1,667 @@
+openapi: 3.0.3
+info:
+  title: BetSolutions Wallet API
+  description: >-
+    Two-mode wallet integration for casino operators. Transfer mode provides
+    deposit, withdraw, and balance operations managed by BetSolutions. Seamless
+    mode enables operator-side wallet management where BetSolutions calls the
+    operator's server for bet, win, cancel, and balance operations.
+  version: 1.0.0
+  contact:
+    url: https://betsolutions.com
+  x-generated-from: documentation
+servers:
+  - url: https://api.betsolutions.com/v1
+    description: BetSolutions API v1
+  - url: https://api-staging.betsolutions.com/v1
+    description: BetSolutions API Staging
+security:
+  - sha256Auth: []
+tags:
+  - name: Transfer Wallet
+    description: BetSolutions-managed wallet operations for transfer mode integration
+  - name: Seamless Wallet
+    description: Operator-side wallet operations for seamless mode integration
+  - name: Player
+    description: Player information and game data retrieval
+paths:
+  /wallet/auth:
+    get:
+      operationId: authenticatePlayer
+      summary: BetSolutions Authenticate Player
+      description: >-
+        Authenticate a player by redirecting to the BetSolutions auth endpoint.
+        Generates a private token from a public token for API communications.
+      tags:
+        - Transfer Wallet
+      parameters:
+        - name: merchantId
+          in: query
+          required: true
+          description: The merchant's unique identifier.
+          schema:
+            type: string
+          example: merchant-001
+        - name: token
+          in: query
+          required: true
+          description: The public player token to exchange for a private token.
+          schema:
+            type: string
+          example: pub-token-abc123
+        - name: hash
+          in: query
+          required: true
+          description: SHA-256 hash of concatenated parameters with merchant secret key.
+          schema:
+            type: string
+          example: a1b2c3d4e5f6...
+      responses:
+        '200':
+          description: Successful authentication returning private token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+              examples:
+                AuthenticatePlayer200Example:
+                  summary: Default authenticatePlayer 200 response
+                  x-microcks-default: true
+                  value:
+                    success: true
+                    token: priv-token-xyz789
+                    playerId: player-500123
+        '400':
+          description: Invalid request parameters or hash.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Authentication failed - invalid merchant credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /wallet/deposit:
+    post:
+      operationId: depositFunds
+      summary: BetSolutions Deposit Funds
+      description: >-
+        Transfer mode: Deposit funds to a player's casino account. Called by the
+        operator to credit player funds for game play.
+      tags:
+        - Transfer Wallet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DepositRequest'
+            examples:
+              DepositFundsRequestExample:
+                summary: Default depositFunds request
+                x-microcks-default: true
+                value:
+                  merchantId: merchant-001
+                  playerId: player-500123
+                  amount: 50.00
+                  currency: USD
+                  transactionId: txn-abc123
+                  hash: a1b2c3d4...
+      responses:
+        '200':
+          description: Successful deposit transaction.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WalletTransactionResponse'
+              examples:
+                DepositFunds200Example:
+                  summary: Default depositFunds 200 response
+                  x-microcks-default: true
+                  value:
+                    success: true
+                    transactionId: txn-abc123
+                    balance: 150.00
+                    currency: USD
+        '400':
+          description: Invalid request or duplicate transaction.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /wallet/withdraw:
+    post:
+      operationId: withdrawFunds
+      summary: BetSolutions Withdraw Funds
+      description: >-
+        Transfer mode: Withdraw funds from a player's casino account. Called by
+        the operator to debit player funds.
+      tags:
+        - Transfer Wallet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WithdrawRequest'
+            examples:
+              WithdrawFundsRequestExample:
+                summary: Default withdrawFunds request
+                x-microcks-default: true
+                value:
+                  merchantId: merchant-001
+                  playerId: player-500123
+                  amount: 25.00
+                  currency: USD
+                  transactionId: txn-def456
+                  hash: b2c3d4e5...
+      responses:
+        '200':
+          description: Successful withdrawal transaction.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WalletTransactionResponse'
+              examples:
+                WithdrawFunds200Example:
+                  summary: Default withdrawFunds 200 response
+                  x-microcks-default: true
+                  value:
+                    success: true
+                    transactionId: txn-def456
+                    balance: 125.00
+                    currency: USD
+        '400':
+          description: Insufficient funds or invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /wallet/balance:
+    post:
+      operationId: getBalance
+      summary: BetSolutions Get Player Balance
+      description: >-
+        Retrieve a player's current wallet balance. Available in both transfer
+        and seamless integration modes.
+      tags:
+        - Transfer Wallet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BalanceRequest'
+            examples:
+              GetBalanceRequestExample:
+                summary: Default getBalance request
+                x-microcks-default: true
+                value:
+                  merchantId: merchant-001
+                  playerId: player-500123
+                  hash: c3d4e5f6...
+      responses:
+        '200':
+          description: Successful balance retrieval.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BalanceResponse'
+              examples:
+                GetBalance200Example:
+                  summary: Default getBalance 200 response
+                  x-microcks-default: true
+                  value:
+                    success: true
+                    playerId: player-500123
+                    balance: 125.00
+                    currency: USD
+        '404':
+          description: Player not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /game/list:
+    post:
+      operationId: getGameList
+      summary: BetSolutions Get Game List
+      description: >-
+        Retrieve the list of available games with product metadata including
+        game IDs, product IDs, names, launch URLs, RTP, and rake percent.
+      tags:
+        - Player
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GameListRequest'
+            examples:
+              GetGameListRequestExample:
+                summary: Default getGameList request
+                x-microcks-default: true
+                value:
+                  merchantId: merchant-001
+                  hash: d4e5f6g7...
+      responses:
+        '200':
+          description: Successful game list retrieval.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameListResponse'
+              examples:
+                GetGameList200Example:
+                  summary: Default getGameList 200 response
+                  x-microcks-default: true
+                  value:
+                    success: true
+                    products:
+                      - gameId: game-001
+                        productId: 2
+                        name: Book of Ra
+                        hasFreePay: true
+                        launchUrl: https://games.betsolutions.com/slots/book-of-ra
+                        rtp: 96.0
+                        rakePercent: 3.5
+        '401':
+          description: Invalid merchant credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /player/info:
+    post:
+      operationId: getPlayerInfo
+      summary: BetSolutions Get Player Info
+      description: >-
+        Returns player details including UserId, UserName, FirstName, LastName,
+        Email, CountryCode, and Currency.
+      tags:
+        - Player
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlayerInfoRequest'
+            examples:
+              GetPlayerInfoRequestExample:
+                summary: Default getPlayerInfo request
+                x-microcks-default: true
+                value:
+                  merchantId: merchant-001
+                  playerId: player-500123
+                  hash: e5f6g7h8...
+      responses:
+        '200':
+          description: Successful player info retrieval.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerInfoResponse'
+              examples:
+                GetPlayerInfo200Example:
+                  summary: Default getPlayerInfo 200 response
+                  x-microcks-default: true
+                  value:
+                    success: true
+                    userId: player-500123
+                    userName: jsmith
+                    firstName: Jane
+                    lastName: Smith
+                    email: jsmith@example.com
+                    countryCode: US
+                    currency: USD
+        '404':
+          description: Player not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+components:
+  securitySchemes:
+    sha256Auth:
+      type: apiKey
+      in: query
+      name: hash
+      description: >-
+        SHA-256 hash of concatenated request parameters using pipe (|) separator
+        and merchant secret key for request signing.
+
+  schemas:
+    AuthResponse:
+      title: AuthResponse
+      type: object
+      description: Authentication response with private player token.
+      properties:
+        success:
+          type: boolean
+          description: Whether authentication succeeded.
+          example: true
+        token:
+          type: string
+          description: Private player token for subsequent API calls.
+          example: priv-token-xyz789
+        playerId:
+          type: string
+          description: Unique player identifier.
+          example: player-500123
+
+    DepositRequest:
+      title: DepositRequest
+      type: object
+      description: Request body for depositing funds to a player's wallet.
+      required:
+        - merchantId
+        - playerId
+        - amount
+        - currency
+        - transactionId
+        - hash
+      properties:
+        merchantId:
+          type: string
+          description: The merchant's unique identifier.
+          example: merchant-001
+        playerId:
+          type: string
+          description: The player's unique identifier.
+          example: player-500123
+        amount:
+          type: number
+          format: double
+          description: Amount to deposit in the player's currency.
+          example: 50.00
+        currency:
+          type: string
+          description: ISO 4217 three-letter currency code.
+          example: USD
+        transactionId:
+          type: string
+          description: Unique transaction identifier to prevent duplicate processing.
+          example: txn-abc123
+        hash:
+          type: string
+          description: SHA-256 hash for request authentication.
+          example: a1b2c3d4...
+
+    WithdrawRequest:
+      title: WithdrawRequest
+      type: object
+      description: Request body for withdrawing funds from a player's wallet.
+      required:
+        - merchantId
+        - playerId
+        - amount
+        - currency
+        - transactionId
+        - hash
+      properties:
+        merchantId:
+          type: string
+          description: The merchant's unique identifier.
+          example: merchant-001
+        playerId:
+          type: string
+          description: The player's unique identifier.
+          example: player-500123
+        amount:
+          type: number
+          format: double
+          description: Amount to withdraw in the player's currency.
+          example: 25.00
+        currency:
+          type: string
+          description: ISO 4217 three-letter currency code.
+          example: USD
+        transactionId:
+          type: string
+          description: Unique transaction identifier to prevent duplicate processing.
+          example: txn-def456
+        hash:
+          type: string
+          description: SHA-256 hash for request authentication.
+          example: b2c3d4e5...
+
+    BalanceRequest:
+      title: BalanceRequest
+      type: object
+      description: Request body for retrieving a player's wallet balance.
+      required:
+        - merchantId
+        - playerId
+        - hash
+      properties:
+        merchantId:
+          type: string
+          description: The merchant's unique identifier.
+          example: merchant-001
+        playerId:
+          type: string
+          description: The player's unique identifier.
+          example: player-500123
+        hash:
+          type: string
+          description: SHA-256 hash for request authentication.
+          example: c3d4e5f6...
+
+    BalanceResponse:
+      title: BalanceResponse
+      type: object
+      description: Player wallet balance response.
+      properties:
+        success:
+          type: boolean
+          description: Whether the request succeeded.
+          example: true
+        playerId:
+          type: string
+          description: The player's unique identifier.
+          example: player-500123
+        balance:
+          type: number
+          format: double
+          description: Current wallet balance.
+          example: 125.00
+        currency:
+          type: string
+          description: ISO 4217 three-letter currency code.
+          example: USD
+
+    WalletTransactionResponse:
+      title: WalletTransactionResponse
+      type: object
+      description: Response for wallet deposit or withdrawal operations.
+      properties:
+        success:
+          type: boolean
+          description: Whether the transaction succeeded.
+          example: true
+        transactionId:
+          type: string
+          description: The transaction identifier.
+          example: txn-abc123
+        balance:
+          type: number
+          format: double
+          description: Updated wallet balance after the transaction.
+          example: 150.00
+        currency:
+          type: string
+          description: ISO 4217 three-letter currency code.
+          example: USD
+
+    GameListRequest:
+      title: GameListRequest
+      type: object
+      description: Request body for retrieving the available game list.
+      required:
+        - merchantId
+        - hash
+      properties:
+        merchantId:
+          type: string
+          description: The merchant's unique identifier.
+          example: merchant-001
+        hash:
+          type: string
+          description: SHA-256 hash for request authentication.
+          example: d4e5f6g7...
+
+    GameListResponse:
+      title: GameListResponse
+      type: object
+      description: Response containing available games and product metadata.
+      properties:
+        success:
+          type: boolean
+          description: Whether the request succeeded.
+          example: true
+        products:
+          type: array
+          description: Array of available game products.
+          items:
+            $ref: '#/components/schemas/Game'
+
+    Game:
+      title: Game
+      type: object
+      description: A BetSolutions game with product metadata.
+      properties:
+        gameId:
+          type: string
+          description: Unique game identifier.
+          example: game-001
+        productId:
+          type: integer
+          description: Product category ID (1=Table Games, 2=Slots, 3=Provably Fair).
+          example: 2
+        name:
+          type: string
+          description: Game display name.
+          example: Book of Ra
+        hasFreePay:
+          type: boolean
+          description: Whether the game supports freespin/freeplay campaigns.
+          example: true
+        launchUrl:
+          type: string
+          description: URL to launch the game.
+          example: https://games.betsolutions.com/slots/book-of-ra
+        rtp:
+          type: number
+          format: double
+          description: Return-to-player percentage.
+          example: 96.0
+        rakePercent:
+          type: number
+          format: double
+          description: Rake percentage for the game.
+          example: 3.5
+
+    PlayerInfoRequest:
+      title: PlayerInfoRequest
+      type: object
+      description: Request body for retrieving player information.
+      required:
+        - merchantId
+        - playerId
+        - hash
+      properties:
+        merchantId:
+          type: string
+          description: The merchant's unique identifier.
+          example: merchant-001
+        playerId:
+          type: string
+          description: The player's unique identifier.
+          example: player-500123
+        hash:
+          type: string
+          description: SHA-256 hash for request authentication.
+          example: e5f6g7h8...
+
+    PlayerInfoResponse:
+      title: PlayerInfoResponse
+      type: object
+      description: Player profile and account information.
+      properties:
+        success:
+          type: boolean
+          description: Whether the request succeeded.
+          example: true
+        userId:
+          type: string
+          description: Unique player user ID.
+          example: player-500123
+        userName:
+          type: string
+          description: Player's username.
+          example: jsmith
+        firstName:
+          type: string
+          description: Player's first name.
+          example: Jane
+        lastName:
+          type: string
+          description: Player's last name.
+          example: Smith
+        email:
+          type: string
+          format: email
+          description: Player's email address.
+          example: jsmith@example.com
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2 country code.
+          example: US
+        currency:
+          type: string
+          description: ISO 4217 currency code for the player's account.
+          example: USD
+
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      description: Error response returned when a request fails.
+      properties:
+        success:
+          type: boolean
+          description: Always false for error responses.
+          example: false
+        errorCode:
+          type: integer
+          description: Numeric error code.
+          example: 400
+        errorMessage:
+          type: string
+          description: Human-readable error description.
+          example: Invalid hash signature.

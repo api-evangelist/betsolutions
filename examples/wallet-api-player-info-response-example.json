@@ -1,0 +1,10 @@
+{
+  "success": true,
+  "userId": "player-500123",
+  "userName": "jsmith",
+  "firstName": "Jane",
+  "lastName": "Smith",
+  "email": "jsmith@example.com",
+  "countryCode": "US",
+  "currency": "USD"
+}

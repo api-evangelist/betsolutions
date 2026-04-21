@@ -1,0 +1,9 @@
+{
+  "gameId": "game-001",
+  "productId": 2,
+  "name": "Book of Ra",
+  "hasFreePay": true,
+  "launchUrl": "https://games.betsolutions.com/slots/book-of-ra",
+  "rtp": 96.0,
+  "rakePercent": 3.5
+}

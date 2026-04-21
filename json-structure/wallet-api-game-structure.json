@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/betsolutions/refs/heads/main/json-structure/wallet-api-game-structure.json",
+  "name": "Game",
+  "description": "A BetSolutions game with product metadata.",
+  "type": "object",
+  "properties": {
+    "gameId": {
+      "type": "string",
+      "description": "Unique game identifier.",
+      "example": "game-001"
+    },
+    "productId": {
+      "type": "int32",
+      "description": "Product category ID (1=Table Games, 2=Slots, 3=Provably Fair).",
+      "example": 2
+    },
+    "name": {
+      "type": "string",
+      "description": "Game display name.",
+      "example": "Book of Ra"
+    },
+    "hasFreePay": {
+      "type": "boolean",
+      "description": "Whether the game supports freespin/freeplay campaigns.",
+      "example": true
+    },
+    "launchUrl": {
+      "type": "string",
+      "description": "URL to launch the game.",
+      "example": "https://games.betsolutions.com/slots/book-of-ra"
+    },
+    "rtp": {
+      "type": "double",
+      "description": "Return-to-player percentage.",
+      "example": 96.0
+    },
+    "rakePercent": {
+      "type": "double",
+      "description": "Rake percentage for the game.",
+      "example": 3.5
+    }
+  }
+}
