@@ -9,168 +9,129 @@ alignedWith:
 provider: BetSolutions
 providerId: betsolutions
 publisherName: BetSolutions
-serviceCategory: API
+serviceCategory: iGaming Platform / Casino APIs
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
   - Betting
   - Casinos
   - Gaming
-  - Gambling
-  - Slots
-  - Sports Betting
   - FinOps
-  - Cost Management
   - FOCUS
-description: FinOps framework definition for the BetSolutions API surface. Provides a FOCUS-aligned mapping
-  for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
+description: 'FOCUS-aligned FinOps shape for BetSolutions: B2B iGaming platform with revenue-share commercial
+  structure on Gross Gaming Revenue plus integration fees. Costs are not API-call denominated; they
+  scale with player wager volume and operator GGR.'
+notes: No public revenue-share rate or integration fee schedule. Replace meter values with the operator's
+  executed BetSolutions agreement once available.
+sources:
+  - https://docs.betsolutions.com/
+  - https://www.betsolutions.com/
 principles:
   - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
+    description: Use the Player and Slots APIs (rake / freespin / round data) to attribute platform cost
+      to player segments, game studios, and campaigns.
   - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
+    description: Allocate revenue share by game module (slots vs table vs sportsbook) and by player segment
+      so marketing / acquisition spend can be weighed against per-segment GGR.
   - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
+    description: Optimize game-mix and freespin-campaign economics — high-margin games and well-targeted
+      campaigns reduce platform cost as a percentage of net revenue.
   - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+    description: Operator's compliance + finance teams jointly own the BetSolutions relationship; review
+      monthly GGR statements and revenue-share reconciliation.
 billingModel:
-  pricingCategory: Usage-Based
+  pricingCategory: Revenue Share + Integration Fees
   billingFrequency: Monthly
-  billingCurrency: USD
+  billingCurrency: USD (settlement varies)
   chargeCategories:
     - Usage
     - Purchase
     - Tax
-    - Credit
     - Adjustment
+    - Refund
+    - Credit
   chargeFrequency: Recurring
 focusColumns:
-  ServiceName: BetSolutions
-  ServiceCategory: Developer Tools / API
+  ServiceName: BetSolutions Casino Platform
+  ServiceCategory: iGaming Platform / Casino APIs
   ProviderName: BetSolutions
   PublisherName: BetSolutions
   InvoiceIssuerName: BetSolutions
-  PricingCategory: Usage-Based
-  PricingUnit: request
+  PricingCategory: Revenue Share
+  PricingUnit: GGR
   BillingCurrency: USD
   ChargeCategory: Usage
 meters:
-  - name: api_requests
-    description: Count of billable API requests
-    unit: request
+  - name: gross_gaming_revenue
+    description: Operator GGR (wagers minus payouts) used as the revenue-share base
+    unit: USD
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
+      - operator
+      - game_module
+      - currency
+  - name: wager_volume
+    description: Total wager volume across modules
+    unit: USD
     aggregation: sum
     dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
+      - operator
+      - game_module
+      - player_segment
+  - name: rounds
+    description: Game round count
+    unit: round
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
+      - game_module
+      - game_studio
+  - name: freespin_campaigns
+    description: Freespin campaign cost (player liability incurred via promotional rounds)
+    unit: USD
+    aggregation: sum
+    dimensions:
+      - campaign
+      - operator
+  - name: integration_fees
+    description: Setup / module / annual integration fees
+    unit: month
+    aggregation: sum
+    dimensions:
+      - operator
+      - module
 apis:
   - name: BetSolutions Wallet API
     baseURL: ''
-    tags:
-      - Wallet
-      - Payments
-      - Transfer
-      - Seamless
     serviceName: BetSolutions Wallet API
     serviceCategory: API
   - name: BetSolutions Player API
     baseURL: ''
-    tags:
-      - Players
-      - Accounts
-      - Information
     serviceName: BetSolutions Player API
     serviceCategory: API
   - name: BetSolutions Slots API
     baseURL: ''
-    tags:
-      - Slots
-      - Campaigns
-      - Freespins
-      - Gaming
     serviceName: BetSolutions Slots API
     serviceCategory: API
   - name: BetSolutions Table Games API
     baseURL: ''
-    tags:
-      - Table Games
-      - Multiplayer
-      - Tournaments
-      - Gaming
     serviceName: BetSolutions Table Games API
     serviceCategory: API
   - name: BetSolutions Provably Fair Games API
     baseURL: ''
-    tags:
-      - Provably Fair
-      - Zeppelin
-      - Gaming
     serviceName: BetSolutions Provably Fair Games API
     serviceCategory: API
   - name: BetSolutions Third-Party Integration API
     baseURL: ''
-    tags:
-      - Sportsbook
-      - BCBetting
-      - Integration
     serviceName: BetSolutions Third-Party Integration API
     serviceCategory: API
 unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+  - name: Platform Take Rate
+    metric: revenue_share / gross_gaming_revenue
+    target: per executed agreement
+  - name: Cost per Round
+    metric: (revenue_share + integration_fees) / rounds
+    target: minimize via game-mix
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
