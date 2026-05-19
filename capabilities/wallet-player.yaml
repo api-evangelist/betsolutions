@@ -1,0 +1,124 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: BetSolutions Wallet API — Player
+  description: 'BetSolutions Wallet API — Player. 2 operations. Lead operation: BetSolutions Get Game List. Self-contained
+    Naftiko capability covering one Betsolutions business surface.'
+  tags:
+  - Betsolutions
+  - Player
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BETSOLUTIONS_API_KEY: BETSOLUTIONS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: wallet-player
+    baseUri: https://api.betsolutions.com/v1
+    description: BetSolutions Wallet API — Player business capability. Self-contained, no shared references.
+    resources:
+    - name: game-list
+      path: /game/list
+      operations:
+      - name: getgamelist
+        method: POST
+        description: BetSolutions Get Game List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: player-info
+      path: /player/info
+      operations:
+      - name: getplayerinfo
+        method: POST
+        description: BetSolutions Get Player Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: hash
+      value: '{{env.BETSOLUTIONS_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: wallet-player-rest
+    port: 8080
+    description: REST adapter for BetSolutions Wallet API — Player. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/game/list
+      name: game-list
+      description: REST surface for game-list.
+      operations:
+      - method: POST
+        name: getgamelist
+        description: BetSolutions Get Game List
+        call: wallet-player.getgamelist
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/player/info
+      name: player-info
+      description: REST surface for player-info.
+      operations:
+      - method: POST
+        name: getplayerinfo
+        description: BetSolutions Get Player Info
+        call: wallet-player.getplayerinfo
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: wallet-player-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for BetSolutions Wallet API — Player. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: betsolutions-get-game-list
+      description: BetSolutions Get Game List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: wallet-player.getgamelist
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: betsolutions-get-player-info
+      description: BetSolutions Get Player Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: wallet-player.getplayerinfo
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
