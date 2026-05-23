@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ErrorResponse",
+  "title": "ErrorResponse",
+  "type": "object",
+  "description": "Error response returned when a request fails.",
+  "properties": {
+    "success": {
+      "type": "boolean",
+      "description": "Always false for error responses.",
+      "example": false
+    },
+    "errorCode": {
+      "type": "integer",
+      "description": "Numeric error code.",
+      "example": 400
+    },
+    "errorMessage": {
+      "type": "string",
+      "description": "Human-readable error description.",
+      "example": "Invalid hash signature."
+    }
+  }
+}

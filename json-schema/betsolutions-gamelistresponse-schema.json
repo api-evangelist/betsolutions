@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GameListResponse",
+  "title": "GameListResponse",
+  "type": "object",
+  "description": "Response containing available games and product metadata.",
+  "properties": {
+    "success": {
+      "type": "boolean",
+      "description": "Whether the request succeeded.",
+      "example": true
+    },
+    "products": {
+      "type": "array",
+      "description": "Array of available game products.",
+      "items": {
+        "$ref": "#/components/schemas/Game"
+      }
+    }
+  }
+}

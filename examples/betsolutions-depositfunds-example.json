@@ -1,0 +1,33 @@
+{
+  "operationId": "depositFunds",
+  "method": "POST",
+  "path": "/wallet/deposit",
+  "summary": "BetSolutions Deposit Funds",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "DepositFundsRequestExample",
+      "example": {
+        "merchantId": "merchant-001",
+        "playerId": "player-500123",
+        "amount": 50.0,
+        "currency": "USD",
+        "transactionId": "txn-abc123",
+        "hash": "a1b2c3d4..."
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "DepositFunds200Example",
+      "example": {
+        "success": true,
+        "transactionId": "txn-abc123",
+        "balance": 150.0,
+        "currency": "USD"
+      }
+    }
+  ]
+}

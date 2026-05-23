@@ -1,0 +1,30 @@
+{
+  "operationId": "getBalance",
+  "method": "POST",
+  "path": "/wallet/balance",
+  "summary": "BetSolutions Get Player Balance",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "GetBalanceRequestExample",
+      "example": {
+        "merchantId": "merchant-001",
+        "playerId": "player-500123",
+        "hash": "c3d4e5f6..."
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "GetBalance200Example",
+      "example": {
+        "success": true,
+        "playerId": "player-500123",
+        "balance": 125.0,
+        "currency": "USD"
+      }
+    }
+  ]
+}

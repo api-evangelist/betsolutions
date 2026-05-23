@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WalletTransactionResponse",
+  "title": "WalletTransactionResponse",
+  "type": "object",
+  "description": "Response for wallet deposit or withdrawal operations.",
+  "properties": {
+    "success": {
+      "type": "boolean",
+      "description": "Whether the transaction succeeded.",
+      "example": true
+    },
+    "transactionId": {
+      "type": "string",
+      "description": "The transaction identifier.",
+      "example": "txn-abc123"
+    },
+    "balance": {
+      "type": "number",
+      "format": "double",
+      "description": "Updated wallet balance after the transaction.",
+      "example": 150.0
+    },
+    "currency": {
+      "type": "string",
+      "description": "ISO 4217 three-letter currency code.",
+      "example": "USD"
+    }
+  }
+}

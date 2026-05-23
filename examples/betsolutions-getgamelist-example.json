@@ -1,0 +1,37 @@
+{
+  "operationId": "getGameList",
+  "method": "POST",
+  "path": "/game/list",
+  "summary": "BetSolutions Get Game List",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "GetGameListRequestExample",
+      "example": {
+        "merchantId": "merchant-001",
+        "hash": "d4e5f6g7..."
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "GetGameList200Example",
+      "example": {
+        "success": true,
+        "products": [
+          {
+            "gameId": "game-001",
+            "productId": 2,
+            "name": "Book of Ra",
+            "hasFreePay": true,
+            "launchUrl": "https://games.betsolutions.com/slots/book-of-ra",
+            "rtp": 96.0,
+            "rakePercent": 3.5
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+name: BetSolutions Domain Vocabulary
+provider: BetSolutions
+providerId: betsolutions
+description: Tag-derived vocabulary for the BetSolutions API surface; sourced from openapi/ tags.
+terms:
+- term: Transfer Wallet
+  description: BetSolutions-managed wallet operations for transfer mode integration
+- term: Seamless Wallet
+  description: Operator-side wallet operations for seamless mode integration
+- term: Player
+  description: Player information and game data retrieval

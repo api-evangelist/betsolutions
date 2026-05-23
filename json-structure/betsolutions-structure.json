@@ -1,0 +1,163 @@
+{
+  "provider": "BetSolutions",
+  "providerId": "betsolutions",
+  "kind": "json-structure",
+  "description": "Structural overview of the BetSolutions API surface; extracted from openapi/.",
+  "schemaCount": 12,
+  "operationCount": 6,
+  "schemas": [
+    {
+      "name": "AuthResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "DepositRequest",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "merchantId",
+        "playerId",
+        "amount",
+        "currency",
+        "transactionId",
+        "hash"
+      ]
+    },
+    {
+      "name": "WithdrawRequest",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "merchantId",
+        "playerId",
+        "amount",
+        "currency",
+        "transactionId",
+        "hash"
+      ]
+    },
+    {
+      "name": "BalanceRequest",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "merchantId",
+        "playerId",
+        "hash"
+      ]
+    },
+    {
+      "name": "BalanceResponse",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "WalletTransactionResponse",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "GameListRequest",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "merchantId",
+        "hash"
+      ]
+    },
+    {
+      "name": "GameListResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Game",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "PlayerInfoRequest",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "merchantId",
+        "playerId",
+        "hash"
+      ]
+    },
+    {
+      "name": "PlayerInfoResponse",
+      "type": "object",
+      "propertyCount": 8,
+      "required": []
+    },
+    {
+      "name": "ErrorResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/wallet/auth",
+      "operationId": "authenticatePlayer",
+      "summary": "BetSolutions Authenticate Player",
+      "tags": [
+        "Transfer Wallet"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/wallet/deposit",
+      "operationId": "depositFunds",
+      "summary": "BetSolutions Deposit Funds",
+      "tags": [
+        "Transfer Wallet"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/wallet/withdraw",
+      "operationId": "withdrawFunds",
+      "summary": "BetSolutions Withdraw Funds",
+      "tags": [
+        "Transfer Wallet"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/wallet/balance",
+      "operationId": "getBalance",
+      "summary": "BetSolutions Get Player Balance",
+      "tags": [
+        "Transfer Wallet"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/game/list",
+      "operationId": "getGameList",
+      "summary": "BetSolutions Get Game List",
+      "tags": [
+        "Player"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/player/info",
+      "operationId": "getPlayerInfo",
+      "summary": "BetSolutions Get Player Info",
+      "tags": [
+        "Player"
+      ]
+    }
+  ]
+}

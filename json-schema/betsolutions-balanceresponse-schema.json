@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BalanceResponse",
+  "title": "BalanceResponse",
+  "type": "object",
+  "description": "Player wallet balance response.",
+  "properties": {
+    "success": {
+      "type": "boolean",
+      "description": "Whether the request succeeded.",
+      "example": true
+    },
+    "playerId": {
+      "type": "string",
+      "description": "The player's unique identifier.",
+      "example": "player-500123"
+    },
+    "balance": {
+      "type": "number",
+      "format": "double",
+      "description": "Current wallet balance.",
+      "example": 125.0
+    },
+    "currency": {
+      "type": "string",
+      "description": "ISO 4217 three-letter currency code.",
+      "example": "USD"
+    }
+  }
+}

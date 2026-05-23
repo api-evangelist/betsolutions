@@ -1,0 +1,19 @@
+{
+  "operationId": "authenticatePlayer",
+  "method": "GET",
+  "path": "/wallet/auth",
+  "summary": "BetSolutions Authenticate Player",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "AuthenticatePlayer200Example",
+      "example": {
+        "success": true,
+        "token": "priv-token-xyz789",
+        "playerId": "player-500123"
+      }
+    }
+  ]
+}
