@@ -29,9 +29,9 @@ apis:
       url: https://docs.betsolutions.com/
     - type: OpenAPI
       url: openapi/betsolutions-wallet-api.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/wallet-player.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/wallet-transfer-wallet.yaml
     description: Two-mode wallet integration for casino operators. Transfer mode provides deposit, withdraw, and balance operations
       managed by BetSolutions. Seamless mode enables operator-side wallet management with bet, win, cancel bet, change win,
@@ -109,10 +109,10 @@ common:
     url: https://docs.betsolutions.com/
   - type: Website
     url: https://betsolutions.com
-  - type: SDK
+  - type: SDKs
     url: https://www.nuget.org/packages/BetSolutions
     title: .NET SDK (NuGet)
-  - type: SDK
+  - type: SDKs
     url: https://packagist.org/packages/betsolutions/casino-api
     title: PHP SDK (Composer)
   - type: Features
