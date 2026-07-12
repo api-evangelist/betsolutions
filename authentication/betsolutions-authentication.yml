@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/betsolutions-wallet-api.yaml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - query
+schemes:
+- name: sha256Auth
+  type: apiKey
+  in: query
+  parameter: hash
+  description: SHA-256 hash of concatenated request parameters using pipe (|) separator and
+    merchant secret key for request signing.
+  sources:
+  - openapi/betsolutions-wallet-api.yaml

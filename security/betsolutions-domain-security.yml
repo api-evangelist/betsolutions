@@ -1,0 +1,26 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: betsolutions.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 20 19:00:55 2026 GMT
+  hsts: false
+- host: docs.betsolutions.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 20 19:00:55 2026 GMT
+  hsts: false
+- host: api.betsolutions.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 20 19:00:55 2026 GMT
+  hsts: null
+domains:
+- domain: betsolutions.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: quarantine

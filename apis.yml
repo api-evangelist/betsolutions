@@ -99,6 +99,10 @@ apis:
     description: Third-party sportsbook integration starting with BCBetting, providing bet retrieval, bonus management, and
       player-specific bonus operations.
 common:
+  - type: DomainSecurity
+    url: security/betsolutions-domain-security.yml
+  - type: Authentication
+    url: authentication/betsolutions-authentication.yml
   - type: GitHubOrganization
     url: https://github.com/betsolutions-llc
   - type: LinkedIn
