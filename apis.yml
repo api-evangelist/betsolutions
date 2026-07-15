@@ -99,6 +99,8 @@ apis:
     description: Third-party sportsbook integration starting with BCBetting, providing bet retrieval, bonus management, and
       player-specific bonus operations.
 common:
+  - type: AgenticAccess
+    url: agentic-access/betsolutions-agentic-access.yml
   - type: DomainSecurity
     url: security/betsolutions-domain-security.yml
   - type: Authentication
