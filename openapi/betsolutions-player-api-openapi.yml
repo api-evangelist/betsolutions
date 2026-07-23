@@ -1,0 +1,268 @@
+openapi: 3.0.3
+info:
+  title: BetSolutions Wallet Player API
+  description: Two-mode wallet integration for casino operators. Transfer mode provides deposit, withdraw, and balance operations managed by BetSolutions. Seamless mode enables operator-side wallet management where BetSolutions calls the operator's server for bet, win, cancel, and balance operations.
+  version: 1.0.0
+  contact:
+    url: https://betsolutions.com
+  x-generated-from: documentation
+servers:
+- url: https://api.betsolutions.com/v1
+  description: BetSolutions API v1
+- url: https://api-staging.betsolutions.com/v1
+  description: BetSolutions API Staging
+security:
+- sha256Auth: []
+tags:
+- name: Player
+  description: Player information and game data retrieval
+paths:
+  /game/list:
+    post:
+      operationId: getGameList
+      summary: BetSolutions Get Game List
+      description: Retrieve the list of available games with product metadata including game IDs, product IDs, names, launch URLs, RTP, and rake percent.
+      tags:
+      - Player
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GameListRequest'
+            examples:
+              GetGameListRequestExample:
+                summary: Default getGameList request
+                x-microcks-default: true
+                value:
+                  merchantId: merchant-001
+                  hash: d4e5f6g7...
+      responses:
+        '200':
+          description: Successful game list retrieval.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameListResponse'
+              examples:
+                GetGameList200Example:
+                  summary: Default getGameList 200 response
+                  x-microcks-default: true
+                  value:
+                    success: true
+                    products:
+                    - gameId: game-001
+                      productId: 2
+                      name: Book of Ra
+                      hasFreePay: true
+                      launchUrl: https://games.betsolutions.com/slots/book-of-ra
+                      rtp: 96.0
+                      rakePercent: 3.5
+        '401':
+          description: Invalid merchant credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /player/info:
+    post:
+      operationId: getPlayerInfo
+      summary: BetSolutions Get Player Info
+      description: Returns player details including UserId, UserName, FirstName, LastName, Email, CountryCode, and Currency.
+      tags:
+      - Player
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlayerInfoRequest'
+            examples:
+              GetPlayerInfoRequestExample:
+                summary: Default getPlayerInfo request
+                x-microcks-default: true
+                value:
+                  merchantId: merchant-001
+                  playerId: player-500123
+                  hash: e5f6g7h8...
+      responses:
+        '200':
+          description: Successful player info retrieval.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerInfoResponse'
+              examples:
+                GetPlayerInfo200Example:
+                  summary: Default getPlayerInfo 200 response
+                  x-microcks-default: true
+                  value:
+                    success: true
+                    userId: player-500123
+                    userName: jsmith
+                    firstName: Jane
+                    lastName: Smith
+                    email: jsmith@example.com
+                    countryCode: US
+                    currency: USD
+        '404':
+          description: Player not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    GameListResponse:
+      title: GameListResponse
+      type: object
+      description: Response containing available games and product metadata.
+      properties:
+        success:
+          type: boolean
+          description: Whether the request succeeded.
+          example: true
+        products:
+          type: array
+          description: Array of available game products.
+          items:
+            $ref: '#/components/schemas/Game'
+    GameListRequest:
+      title: GameListRequest
+      type: object
+      description: Request body for retrieving the available game list.
+      required:
+      - merchantId
+      - hash
+      properties:
+        merchantId:
+          type: string
+          description: The merchant's unique identifier.
+          example: merchant-001
+        hash:
+          type: string
+          description: SHA-256 hash for request authentication.
+          example: d4e5f6g7...
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      description: Error response returned when a request fails.
+      properties:
+        success:
+          type: boolean
+          description: Always false for error responses.
+          example: false
+        errorCode:
+          type: integer
+          description: Numeric error code.
+          example: 400
+        errorMessage:
+          type: string
+          description: Human-readable error description.
+          example: Invalid hash signature.
+    PlayerInfoRequest:
+      title: PlayerInfoRequest
+      type: object
+      description: Request body for retrieving player information.
+      required:
+      - merchantId
+      - playerId
+      - hash
+      properties:
+        merchantId:
+          type: string
+          description: The merchant's unique identifier.
+          example: merchant-001
+        playerId:
+          type: string
+          description: The player's unique identifier.
+          example: player-500123
+        hash:
+          type: string
+          description: SHA-256 hash for request authentication.
+          example: e5f6g7h8...
+    Game:
+      title: Game
+      type: object
+      description: A BetSolutions game with product metadata.
+      properties:
+        gameId:
+          type: string
+          description: Unique game identifier.
+          example: game-001
+        productId:
+          type: integer
+          description: Product category ID (1=Table Games, 2=Slots, 3=Provably Fair).
+          example: 2
+        name:
+          type: string
+          description: Game display name.
+          example: Book of Ra
+        hasFreePay:
+          type: boolean
+          description: Whether the game supports freespin/freeplay campaigns.
+          example: true
+        launchUrl:
+          type: string
+          description: URL to launch the game.
+          example: https://games.betsolutions.com/slots/book-of-ra
+        rtp:
+          type: number
+          format: double
+          description: Return-to-player percentage.
+          example: 96.0
+        rakePercent:
+          type: number
+          format: double
+          description: Rake percentage for the game.
+          example: 3.5
+    PlayerInfoResponse:
+      title: PlayerInfoResponse
+      type: object
+      description: Player profile and account information.
+      properties:
+        success:
+          type: boolean
+          description: Whether the request succeeded.
+          example: true
+        userId:
+          type: string
+          description: Unique player user ID.
+          example: player-500123
+        userName:
+          type: string
+          description: Player's username.
+          example: jsmith
+        firstName:
+          type: string
+          description: Player's first name.
+          example: Jane
+        lastName:
+          type: string
+          description: Player's last name.
+          example: Smith
+        email:
+          type: string
+          format: email
+          description: Player's email address.
+          example: jsmith@example.com
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2 country code.
+          example: US
+        currency:
+          type: string
+          description: ISO 4217 currency code for the player's account.
+          example: USD
+  securitySchemes:
+    sha256Auth:
+      type: apiKey
+      in: query
+      name: hash
+      description: SHA-256 hash of concatenated request parameters using pipe (|) separator and merchant secret key for request signing.
