@@ -1,4 +1,18 @@
 aid: betsolutions
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/betsolutions.png
 url: https://raw.githubusercontent.com/api-evangelist/betsolutions/refs/heads/main/apis.yml
 name: BetSolutions
 tags:
@@ -16,88 +30,103 @@ description: BetSolutions provides a casino and gaming platform API offering a t
   supports transfer and seamless wallet integration modes, slot campaigns with freespins, table games, provably fair games,
   poker, and third-party sportsbook integrations. Authentication uses SHA-256 hash-based signing with merchant secret keys.
 apis:
-  - aid: betsolutions:wallet-api
-    name: BetSolutions Wallet API
-    tags:
-    - Wallet
-    - Payments
-    - Transfer
-    - Seamless
-    humanURL: https://docs.betsolutions.com/
-    properties:
-    - type: Documentation
-      url: https://docs.betsolutions.com/
-    - type: OpenAPI
-      url: openapi/betsolutions-wallet-api.yaml
-    - type: X-NaftikoCapability
-      url: capabilities/wallet-player.yaml
-    - type: X-NaftikoCapability
-      url: capabilities/wallet-transfer-wallet.yaml
-    description: Two-mode wallet integration for casino operators. Transfer mode provides deposit, withdraw, and balance operations
-      managed by BetSolutions. Seamless mode enables operator-side wallet management with bet, win, cancel bet, change win,
-      and balance endpoints called by BetSolutions on the operator's server.
-  - aid: betsolutions:player-api
-    name: BetSolutions Player API
-    tags:
-    - Players
-    - Accounts
-    - Information
-    humanURL: https://docs.betsolutions.com/
-    properties:
-    - type: Documentation
-      url: https://docs.betsolutions.com/
-    description: Player information and data retrieval endpoints including player profile details, rake data by date range,
-      and game list retrieval with product metadata.
-  - aid: betsolutions:slots-api
-    name: BetSolutions Slots API
-    tags:
-    - Slots
-    - Campaigns
-    - Freespins
-    - Gaming
-    humanURL: https://docs.betsolutions.com/
-    properties:
-    - type: Documentation
-      url: https://docs.betsolutions.com/
-    description: Slot game integration and campaign management including freespin campaign creation, deactivation, configuration
-      retrieval, and player assignment for promotional campaigns.
-  - aid: betsolutions:table-games-api
-    name: BetSolutions Table Games API
-    tags:
-    - Table Games
-    - Multiplayer
-    - Tournaments
-    - Gaming
-    humanURL: https://docs.betsolutions.com/
-    properties:
-    - type: Documentation
-      url: https://docs.betsolutions.com/
-    description: Multiplayer table game integration supporting Backgammon, Bura, Okey, Domino, and Seka. Includes tournament
-      management with types and statuses, and achievement systems for player engagement.
-  - aid: betsolutions:provably-fair-api
-    name: BetSolutions Provably Fair Games API
-    tags:
-    - Provably Fair
-    - Zeppelin
-    - Gaming
-    humanURL: https://docs.betsolutions.com/
-    properties:
-    - type: Documentation
-      url: https://docs.betsolutions.com/
-    description: Provably fair game integration for Zeppelin, High Low, Dice, Mines, and Plinko. Provides jackpot history, multiplier
-      history, and freebet creation for provably fair game mechanics.
-  - aid: betsolutions:third-party-api
-    name: BetSolutions Third-Party Integration API
-    tags:
-    - Sportsbook
-    - BCBetting
-    - Integration
-    humanURL: https://docs.betsolutions.com/
-    properties:
-    - type: Documentation
-      url: https://docs.betsolutions.com/
-    description: Third-party sportsbook integration starting with BCBetting, providing bet retrieval, bonus management, and
-      player-specific bonus operations.
+- aid: betsolutions:player-api
+  name: BetSolutions Player API
+  tags:
+  - Players
+  - Accounts
+  - Information
+  humanURL: https://docs.betsolutions.com/
+  properties:
+  - type: Documentation
+    url: https://docs.betsolutions.com/
+  description: >-
+    Player information and data retrieval endpoints including player profile details, rake data by date
+    range, and game list retrieval with product metadata.
+- aid: betsolutions:slots-api
+  name: BetSolutions Slots API
+  tags:
+  - Slots
+  - Campaigns
+  - Freespins
+  - Gaming
+  humanURL: https://docs.betsolutions.com/
+  properties:
+  - type: Documentation
+    url: https://docs.betsolutions.com/
+  description: >-
+    Slot game integration and campaign management including freespin campaign creation, deactivation,
+    configuration retrieval, and player assignment for promotional campaigns.
+- aid: betsolutions:table-games-api
+  name: BetSolutions Table Games API
+  tags:
+  - Table Games
+  - Multiplayer
+  - Tournaments
+  - Gaming
+  humanURL: https://docs.betsolutions.com/
+  properties:
+  - type: Documentation
+    url: https://docs.betsolutions.com/
+  description: >-
+    Multiplayer table game integration supporting Backgammon, Bura, Okey, Domino, and Seka. Includes tournament
+    management with types and statuses, and achievement systems for player engagement.
+- aid: betsolutions:provably-fair-api
+  name: BetSolutions Provably Fair Games API
+  tags:
+  - Provably Fair
+  - Zeppelin
+  - Gaming
+  humanURL: https://docs.betsolutions.com/
+  properties:
+  - type: Documentation
+    url: https://docs.betsolutions.com/
+  description: >-
+    Provably fair game integration for Zeppelin, High Low, Dice, Mines, and Plinko. Provides jackpot history,
+    multiplier history, and freebet creation for provably fair game mechanics.
+- aid: betsolutions:third-party-api
+  name: BetSolutions Third-Party Integration API
+  tags:
+  - Sportsbook
+  - BCBetting
+  - Integration
+  humanURL: https://docs.betsolutions.com/
+  properties:
+  - type: Documentation
+    url: https://docs.betsolutions.com/
+  description: >-
+    Third-party sportsbook integration starting with BCBetting, providing bet retrieval, bonus management,
+    and player-specific bonus operations.
+- aid: betsolutions:betsolutions-player-api
+  name: BetSolutions Player API
+  description: Player information and game data retrieval
+  humanURL: https://docs.betsolutions.com/
+  tags:
+  - Player
+  properties:
+  - type: OpenAPI
+    url: openapi/betsolutions-player-api-openapi.yml
+  - type: Documentation
+    url: https://docs.betsolutions.com/
+  - type: X-NaftikoCapability
+    url: capabilities/wallet-player.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/wallet-transfer-wallet.yaml
+- aid: betsolutions:betsolutions-transfer-wallet-api
+  name: BetSolutions Transfer Wallet API
+  description: BetSolutions-managed wallet operations for transfer mode integration
+  humanURL: https://docs.betsolutions.com/
+  tags:
+  - Transfer Wallet
+  properties:
+  - type: OpenAPI
+    url: openapi/betsolutions-transfer-wallet-api-openapi.yml
+  - type: Documentation
+    url: https://docs.betsolutions.com/
+  - type: X-NaftikoCapability
+    url: capabilities/wallet-player.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/wallet-transfer-wallet.yaml
 common:
   - type: AgenticAccess
     url: agentic-access/betsolutions-agentic-access.yml
