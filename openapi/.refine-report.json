@@ -1,0 +1,16 @@
+{
+  "provider": "betsolutions",
+  "sources": [
+    "betsolutions-player-api-openapi.yml",
+    "betsolutions-transfer-wallet-api-openapi.yml"
+  ],
+  "outputs": [
+    "betsolutions-player-api-openapi.yml",
+    "betsolutions-transfer-wallet-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
