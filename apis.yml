@@ -108,10 +108,6 @@ apis:
     url: openapi/betsolutions-player-api-openapi.yml
   - type: Documentation
     url: https://docs.betsolutions.com/
-  - type: X-NaftikoCapability
-    url: capabilities/wallet-player.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/wallet-transfer-wallet.yaml
 - aid: betsolutions:betsolutions-transfer-wallet-api
   name: BetSolutions Transfer Wallet API
   description: BetSolutions-managed wallet operations for transfer mode integration
@@ -123,10 +119,6 @@ apis:
     url: openapi/betsolutions-transfer-wallet-api-openapi.yml
   - type: Documentation
     url: https://docs.betsolutions.com/
-  - type: X-NaftikoCapability
-    url: capabilities/wallet-player.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/wallet-transfer-wallet.yaml
 common:
   - type: AgenticAccess
     url: agentic-access/betsolutions-agentic-access.yml
