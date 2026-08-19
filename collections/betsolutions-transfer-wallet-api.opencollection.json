@@ -1,0 +1,102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "BetSolutions Wallet Player Transfer Wallet API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "hash",
+      "value": "{{hash}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transfer Wallet",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "BetSolutions Authenticate Player",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.betsolutions.com/v1/wallet/auth",
+            "params": [
+              {
+                "name": "merchantId",
+                "value": "merchant-001",
+                "type": "query",
+                "description": "The merchant's unique identifier."
+              },
+              {
+                "name": "token",
+                "value": "pub-token-abc123",
+                "type": "query",
+                "description": "The public player token to exchange for a private token."
+              },
+              {
+                "name": "hash",
+                "value": "a1b2c3d4e5f6...",
+                "type": "query",
+                "description": "SHA-256 hash of concatenated parameters with merchant secret key."
+              }
+            ]
+          },
+          "docs": "Authenticate a player by redirecting to the BetSolutions auth endpoint. Generates a private token from a public token for API communications."
+        },
+        {
+          "info": {
+            "name": "BetSolutions Deposit Funds",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.betsolutions.com/v1/wallet/deposit",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Transfer mode: Deposit funds to a player's casino account. Called by the operator to credit player funds for game play."
+        },
+        {
+          "info": {
+            "name": "BetSolutions Withdraw Funds",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.betsolutions.com/v1/wallet/withdraw",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Transfer mode: Withdraw funds from a player's casino account. Called by the operator to debit player funds."
+        },
+        {
+          "info": {
+            "name": "BetSolutions Get Player Balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.betsolutions.com/v1/wallet/balance",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve a player's current wallet balance. Available in both transfer and seamless integration modes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

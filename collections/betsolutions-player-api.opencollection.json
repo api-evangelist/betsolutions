@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "BetSolutions Wallet Player API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "hash",
+      "value": "{{hash}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Player",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "BetSolutions Get Game List",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.betsolutions.com/v1/game/list",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve the list of available games with product metadata including game IDs, product IDs, names, launch URLs, RTP, and rake percent."
+        },
+        {
+          "info": {
+            "name": "BetSolutions Get Player Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.betsolutions.com/v1/player/info",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns player details including UserId, UserName, FirstName, LastName, Email, CountryCode, and Currency."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

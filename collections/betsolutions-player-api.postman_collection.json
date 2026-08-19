@@ -1,0 +1,343 @@
+{
+  "item": [
+    {
+      "id": "1e5b9a71-fd28-42b6-b970-a6640a2b354e",
+      "name": "Player",
+      "description": {
+        "content": "Player information and game data retrieval",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "728b632f-6bc3-4c1e-9c3f-1e66c16aee27",
+          "name": "BetSolutions Get Game List",
+          "request": {
+            "name": "BetSolutions Get Game List",
+            "description": {
+              "content": "Retrieve the list of available games with product metadata including game IDs, product IDs, names, launch URLs, RTP, and rake percent.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "game",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"merchantId\": \"<string>\",\n  \"hash\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5f13cf27-1b20-4c6b-b207-57f316b7a645",
+              "name": "Successful game list retrieval.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "game",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "hash",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantId\": \"merchant-001\",\n  \"hash\": \"d4e5f6g7...\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"products\": [\n    {\n      \"gameId\": \"game-001\",\n      \"productId\": 2,\n      \"name\": \"Book of Ra\",\n      \"hasFreePay\": true,\n      \"launchUrl\": \"https://games.betsolutions.com/slots/book-of-ra\",\n      \"rtp\": 96,\n      \"rakePercent\": 3.5\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fdf13c98-c28f-430c-bff5-501988f97174",
+              "name": "Invalid merchant credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "game",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "hash",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantId\": \"merchant-001\",\n  \"hash\": \"d4e5f6g7...\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"errorCode\": 400,\n  \"errorMessage\": \"Invalid hash signature.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "efecdc54-c39d-41a4-ad6b-7d6a7a633e75",
+          "name": "BetSolutions Get Player Info",
+          "request": {
+            "name": "BetSolutions Get Player Info",
+            "description": {
+              "content": "Returns player details including UserId, UserName, FirstName, LastName, Email, CountryCode, and Currency.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "player",
+                "info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"merchantId\": \"<string>\",\n  \"playerId\": \"<string>\",\n  \"hash\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1b741f81-6bba-4826-8530-82c68a7d6e0c",
+              "name": "Successful player info retrieval.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "player",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "hash",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantId\": \"merchant-001\",\n  \"playerId\": \"player-500123\",\n  \"hash\": \"e5f6g7h8...\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"userId\": \"player-500123\",\n  \"userName\": \"jsmith\",\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Smith\",\n  \"email\": \"jsmith@example.com\",\n  \"countryCode\": \"US\",\n  \"currency\": \"USD\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f9a2162a-eacf-41b1-9218-8e2a33face24",
+              "name": "Player not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "player",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "hash",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantId\": \"merchant-001\",\n  \"playerId\": \"player-500123\",\n  \"hash\": \"e5f6g7h8...\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"errorCode\": 400,\n  \"errorMessage\": \"Invalid hash signature.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.betsolutions.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "hash"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2e393e76-d36e-4790-89f2-5207e07e2da3",
+    "name": "BetSolutions Wallet Player API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Two-mode wallet integration for casino operators. Transfer mode provides deposit, withdraw, and balance operations managed by BetSolutions. Seamless mode enables operator-side wallet management where BetSolutions calls the operator's server for bet, win, cancel, and balance operations.",
+      "type": "text/plain"
+    }
+  }
+}

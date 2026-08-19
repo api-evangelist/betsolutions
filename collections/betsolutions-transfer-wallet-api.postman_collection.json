@@ -1,0 +1,704 @@
+{
+  "item": [
+    {
+      "id": "b9511bf7-dad4-4270-9e31-06e675e582ad",
+      "name": "Transfer Wallet",
+      "description": {
+        "content": "BetSolutions-managed wallet operations for transfer mode integration",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d96c8a8d-740d-4e3c-ad2d-259c265d541e",
+          "name": "BetSolutions Authenticate Player",
+          "request": {
+            "name": "BetSolutions Authenticate Player",
+            "description": {
+              "content": "Authenticate a player by redirecting to the BetSolutions auth endpoint. Generates a private token from a public token for API communications.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallet",
+                "auth"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "merchantId",
+                  "value": "<string>",
+                  "description": "(Required) The merchant's unique identifier."
+                },
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) The public player token to exchange for a private token."
+                },
+                {
+                  "disabled": false,
+                  "key": "hash",
+                  "value": "<string>",
+                  "description": "(Required) SHA-256 hash of concatenated parameters with merchant secret key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8abba805-70e0-4272-a5ed-fa7396fa14c5",
+              "name": "Successful authentication returning private token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallet",
+                    "auth"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "merchantId",
+                      "value": "merchant-001"
+                    },
+                    {
+                      "key": "token",
+                      "value": "pub-token-abc123"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "a1b2c3d4e5f6..."
+                    },
+                    {
+                      "key": "hash",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"token\": \"priv-token-xyz789\",\n  \"playerId\": \"player-500123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eeda6b99-bf1f-4e27-94e6-5c14fa32e076",
+              "name": "Invalid request parameters or hash.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallet",
+                    "auth"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "merchantId",
+                      "value": "merchant-001"
+                    },
+                    {
+                      "key": "token",
+                      "value": "pub-token-abc123"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "a1b2c3d4e5f6..."
+                    },
+                    {
+                      "key": "hash",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"errorCode\": 400,\n  \"errorMessage\": \"Invalid hash signature.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "149e39df-c859-4279-9a67-74378178a8e3",
+              "name": "Authentication failed - invalid merchant credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallet",
+                    "auth"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "merchantId",
+                      "value": "merchant-001"
+                    },
+                    {
+                      "key": "token",
+                      "value": "pub-token-abc123"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "a1b2c3d4e5f6..."
+                    },
+                    {
+                      "key": "hash",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"errorCode\": 400,\n  \"errorMessage\": \"Invalid hash signature.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "897322da-387d-4de0-9905-f48e9d8fb40a",
+          "name": "BetSolutions Deposit Funds",
+          "request": {
+            "name": "BetSolutions Deposit Funds",
+            "description": {
+              "content": "Transfer mode: Deposit funds to a player's casino account. Called by the operator to credit player funds for game play.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallet",
+                "deposit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"merchantId\": \"<string>\",\n  \"playerId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"transactionId\": \"<string>\",\n  \"hash\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d6340ce2-2a4f-4c48-8653-4719483f1fc1",
+              "name": "Successful deposit transaction.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallet",
+                    "deposit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "hash",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantId\": \"merchant-001\",\n  \"playerId\": \"player-500123\",\n  \"amount\": 50,\n  \"currency\": \"USD\",\n  \"transactionId\": \"txn-abc123\",\n  \"hash\": \"a1b2c3d4...\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"transactionId\": \"txn-abc123\",\n  \"balance\": 150,\n  \"currency\": \"USD\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6fa52d6b-523e-4524-a3f9-88024c6f8dfa",
+              "name": "Invalid request or duplicate transaction.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallet",
+                    "deposit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "hash",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantId\": \"merchant-001\",\n  \"playerId\": \"player-500123\",\n  \"amount\": 50,\n  \"currency\": \"USD\",\n  \"transactionId\": \"txn-abc123\",\n  \"hash\": \"a1b2c3d4...\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"errorCode\": 400,\n  \"errorMessage\": \"Invalid hash signature.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0e025ccd-4586-4778-944e-15563f4d612b",
+          "name": "BetSolutions Withdraw Funds",
+          "request": {
+            "name": "BetSolutions Withdraw Funds",
+            "description": {
+              "content": "Transfer mode: Withdraw funds from a player's casino account. Called by the operator to debit player funds.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallet",
+                "withdraw"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"merchantId\": \"<string>\",\n  \"playerId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"transactionId\": \"<string>\",\n  \"hash\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "92f2861e-014e-499b-98b5-cf09b000c719",
+              "name": "Successful withdrawal transaction.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallet",
+                    "withdraw"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "hash",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantId\": \"merchant-001\",\n  \"playerId\": \"player-500123\",\n  \"amount\": 25,\n  \"currency\": \"USD\",\n  \"transactionId\": \"txn-def456\",\n  \"hash\": \"b2c3d4e5...\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"transactionId\": \"txn-def456\",\n  \"balance\": 125,\n  \"currency\": \"USD\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70951521-2af9-4fc4-9a52-74f7db742cb5",
+              "name": "Insufficient funds or invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallet",
+                    "withdraw"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "hash",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantId\": \"merchant-001\",\n  \"playerId\": \"player-500123\",\n  \"amount\": 25,\n  \"currency\": \"USD\",\n  \"transactionId\": \"txn-def456\",\n  \"hash\": \"b2c3d4e5...\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"errorCode\": 400,\n  \"errorMessage\": \"Invalid hash signature.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "26f07e72-718d-4a7b-bbe0-226b955da3b3",
+          "name": "BetSolutions Get Player Balance",
+          "request": {
+            "name": "BetSolutions Get Player Balance",
+            "description": {
+              "content": "Retrieve a player's current wallet balance. Available in both transfer and seamless integration modes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallet",
+                "balance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"merchantId\": \"<string>\",\n  \"playerId\": \"<string>\",\n  \"hash\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6e53f1b1-6717-4e75-bfc7-badfda3aef43",
+              "name": "Successful balance retrieval.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallet",
+                    "balance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "hash",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantId\": \"merchant-001\",\n  \"playerId\": \"player-500123\",\n  \"hash\": \"c3d4e5f6...\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"playerId\": \"player-500123\",\n  \"balance\": 125,\n  \"currency\": \"USD\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f1dc445-7223-4d73-9f07-1c23b37a0a7f",
+              "name": "Player not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallet",
+                    "balance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "hash",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantId\": \"merchant-001\",\n  \"playerId\": \"player-500123\",\n  \"hash\": \"c3d4e5f6...\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"errorCode\": 400,\n  \"errorMessage\": \"Invalid hash signature.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.betsolutions.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "hash"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "060b58dd-80b0-4d42-b0c1-86eaa244e60c",
+    "name": "BetSolutions Wallet Player Transfer Wallet API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Two-mode wallet integration for casino operators. Transfer mode provides deposit, withdraw, and balance operations managed by BetSolutions. Seamless mode enables operator-side wallet management where BetSolutions calls the operator's server for bet, win, cancel, and balance operations.",
+      "type": "text/plain"
+    }
+  }
+}
