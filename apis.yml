@@ -34,6 +34,10 @@ apis:
   name: BetSolutions Player API
   tags:
   - Players
+  - Account
+  - Information
+  tags_raw:
+  - Players
   - Accounts
   - Information
   humanURL: https://docs.betsolutions.com/
