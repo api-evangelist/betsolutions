@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: BetSolutions Wallet Player Transfer Wallet API
   description: Two-mode wallet integration for casino operators. Transfer mode provides deposit, withdraw, and balance operations managed by BetSolutions. Seamless mode enables operator-side wallet management where BetSolutions calls the operator's server for bet, win, cancel, and balance operations.
@@ -222,45 +222,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    AuthResponse:
-      title: AuthResponse
-      type: object
-      description: Authentication response with private player token.
-      properties:
-        success:
-          type: boolean
-          description: Whether authentication succeeded.
-          example: true
-        token:
-          type: string
-          description: Private player token for subsequent API calls.
-          example: priv-token-xyz789
-        playerId:
-          type: string
-          description: Unique player identifier.
-          example: player-500123
-    WalletTransactionResponse:
-      title: WalletTransactionResponse
-      type: object
-      description: Response for wallet deposit or withdrawal operations.
-      properties:
-        success:
-          type: boolean
-          description: Whether the transaction succeeded.
-          example: true
-        transactionId:
-          type: string
-          description: The transaction identifier.
-          example: txn-abc123
-        balance:
-          type: number
-          format: double
-          description: Updated wallet balance after the transaction.
-          example: 150.0
-        currency:
-          type: string
-          description: ISO 4217 three-letter currency code.
-          example: USD
     ErrorResponse:
       title: ErrorResponse
       type: object
@@ -278,28 +239,27 @@ components:
           type: string
           description: Human-readable error description.
           example: Invalid hash signature.
-    BalanceResponse:
-      title: BalanceResponse
+    BalanceRequest:
+      title: BalanceRequest
       type: object
-      description: Player wallet balance response.
+      description: Request body for retrieving a player's wallet balance.
+      required:
+      - merchantId
+      - playerId
+      - hash
       properties:
-        success:
-          type: boolean
-          description: Whether the request succeeded.
-          example: true
+        merchantId:
+          type: string
+          description: The merchant's unique identifier.
+          example: merchant-001
         playerId:
           type: string
           description: The player's unique identifier.
           example: player-500123
-        balance:
-          type: number
-          format: double
-          description: Current wallet balance.
-          example: 125.0
-        currency:
+        hash:
           type: string
-          description: ISO 4217 three-letter currency code.
-          example: USD
+          description: SHA-256 hash for request authentication.
+          example: c3d4e5f6...
     WithdrawRequest:
       title: WithdrawRequest
       type: object
@@ -337,6 +297,67 @@ components:
           type: string
           description: SHA-256 hash for request authentication.
           example: b2c3d4e5...
+    BalanceResponse:
+      title: BalanceResponse
+      type: object
+      description: Player wallet balance response.
+      properties:
+        success:
+          type: boolean
+          description: Whether the request succeeded.
+          example: true
+        playerId:
+          type: string
+          description: The player's unique identifier.
+          example: player-500123
+        balance:
+          type: number
+          format: double
+          description: Current wallet balance.
+          example: 125.0
+        currency:
+          type: string
+          description: ISO 4217 three-letter currency code.
+          example: USD
+    WalletTransactionResponse:
+      title: WalletTransactionResponse
+      type: object
+      description: Response for wallet deposit or withdrawal operations.
+      properties:
+        success:
+          type: boolean
+          description: Whether the transaction succeeded.
+          example: true
+        transactionId:
+          type: string
+          description: The transaction identifier.
+          example: txn-abc123
+        balance:
+          type: number
+          format: double
+          description: Updated wallet balance after the transaction.
+          example: 150.0
+        currency:
+          type: string
+          description: ISO 4217 three-letter currency code.
+          example: USD
+    AuthResponse:
+      title: AuthResponse
+      type: object
+      description: Authentication response with private player token.
+      properties:
+        success:
+          type: boolean
+          description: Whether authentication succeeded.
+          example: true
+        token:
+          type: string
+          description: Private player token for subsequent API calls.
+          example: priv-token-xyz789
+        playerId:
+          type: string
+          description: Unique player identifier.
+          example: player-500123
     DepositRequest:
       title: DepositRequest
       type: object
@@ -374,27 +395,6 @@ components:
           type: string
           description: SHA-256 hash for request authentication.
           example: a1b2c3d4...
-    BalanceRequest:
-      title: BalanceRequest
-      type: object
-      description: Request body for retrieving a player's wallet balance.
-      required:
-      - merchantId
-      - playerId
-      - hash
-      properties:
-        merchantId:
-          type: string
-          description: The merchant's unique identifier.
-          example: merchant-001
-        playerId:
-          type: string
-          description: The player's unique identifier.
-          example: player-500123
-        hash:
-          type: string
-          description: SHA-256 hash for request authentication.
-          example: c3d4e5f6...
   securitySchemes:
     sha256Auth:
       type: apiKey
