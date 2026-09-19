@@ -45,7 +45,7 @@ apis:
 - aid: betsolutions:player-api
   name: BetSolutions Player API
   tags:
-  - Players
+  - Player
   - Account
   - Information
   tags_raw:
