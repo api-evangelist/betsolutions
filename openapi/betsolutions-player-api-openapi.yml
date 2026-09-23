@@ -119,23 +119,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
-      title: ErrorResponse
-      type: object
-      description: Error response returned when a request fails.
-      properties:
-        success:
-          type: boolean
-          description: Always false for error responses.
-          example: false
-        errorCode:
-          type: integer
-          description: Numeric error code.
-          example: 400
-        errorMessage:
-          type: string
-          description: Human-readable error description.
-          example: Invalid hash signature.
     GameListRequest:
       title: GameListRequest
       type: object
@@ -173,6 +156,23 @@ components:
           type: string
           description: SHA-256 hash for request authentication.
           example: e5f6g7h8...
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      description: Error response returned when a request fails.
+      properties:
+        success:
+          type: boolean
+          description: Always false for error responses.
+          example: false
+        errorCode:
+          type: integer
+          description: Numeric error code.
+          example: 400
+        errorMessage:
+          type: string
+          description: Human-readable error description.
+          example: Invalid hash signature.
     GameListResponse:
       title: GameListResponse
       type: object

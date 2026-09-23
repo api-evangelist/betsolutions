@@ -1,8 +1,7 @@
 {
   "provider": "betsolutions",
   "sources": [
-    "betsolutions-player-api-openapi.yml",
-    "betsolutions-transfer-wallet-api-openapi.yml"
+    "_ae-authored/betsolutions-wallet-api.yaml"
   ],
   "outputs": [
     "betsolutions-player-api-openapi.yml",
@@ -12,9 +11,12 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "betsolutions-player-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "betsolutions-transfer-wallet-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "betsolutions-wallet-api.yaml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "betsolutions-player-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "betsolutions-transfer-wallet-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

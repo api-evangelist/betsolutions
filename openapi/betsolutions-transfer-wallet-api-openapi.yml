@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: BetSolutions Wallet Player Transfer Wallet API
+  title: BetSolutions Wallet Transfer Wallet API
   description: Two-mode wallet integration for casino operators. Transfer mode provides deposit, withdraw, and balance operations managed by BetSolutions. Seamless mode enables operator-side wallet management where BetSolutions calls the operator's server for bet, win, cancel, and balance operations.
   version: 1.0.0
   contact:
@@ -222,103 +222,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
-      title: ErrorResponse
-      type: object
-      description: Error response returned when a request fails.
-      properties:
-        success:
-          type: boolean
-          description: Always false for error responses.
-          example: false
-        errorCode:
-          type: integer
-          description: Numeric error code.
-          example: 400
-        errorMessage:
-          type: string
-          description: Human-readable error description.
-          example: Invalid hash signature.
-    BalanceRequest:
-      title: BalanceRequest
-      type: object
-      description: Request body for retrieving a player's wallet balance.
-      required:
-      - merchantId
-      - playerId
-      - hash
-      properties:
-        merchantId:
-          type: string
-          description: The merchant's unique identifier.
-          example: merchant-001
-        playerId:
-          type: string
-          description: The player's unique identifier.
-          example: player-500123
-        hash:
-          type: string
-          description: SHA-256 hash for request authentication.
-          example: c3d4e5f6...
-    WithdrawRequest:
-      title: WithdrawRequest
-      type: object
-      description: Request body for withdrawing funds from a player's wallet.
-      required:
-      - merchantId
-      - playerId
-      - amount
-      - currency
-      - transactionId
-      - hash
-      properties:
-        merchantId:
-          type: string
-          description: The merchant's unique identifier.
-          example: merchant-001
-        playerId:
-          type: string
-          description: The player's unique identifier.
-          example: player-500123
-        amount:
-          type: number
-          format: double
-          description: Amount to withdraw in the player's currency.
-          example: 25.0
-        currency:
-          type: string
-          description: ISO 4217 three-letter currency code.
-          example: USD
-        transactionId:
-          type: string
-          description: Unique transaction identifier to prevent duplicate processing.
-          example: txn-def456
-        hash:
-          type: string
-          description: SHA-256 hash for request authentication.
-          example: b2c3d4e5...
-    BalanceResponse:
-      title: BalanceResponse
-      type: object
-      description: Player wallet balance response.
-      properties:
-        success:
-          type: boolean
-          description: Whether the request succeeded.
-          example: true
-        playerId:
-          type: string
-          description: The player's unique identifier.
-          example: player-500123
-        balance:
-          type: number
-          format: double
-          description: Current wallet balance.
-          example: 125.0
-        currency:
-          type: string
-          description: ISO 4217 three-letter currency code.
-          example: USD
     WalletTransactionResponse:
       title: WalletTransactionResponse
       type: object
@@ -341,6 +244,66 @@ components:
           type: string
           description: ISO 4217 three-letter currency code.
           example: USD
+    BalanceResponse:
+      title: BalanceResponse
+      type: object
+      description: Player wallet balance response.
+      properties:
+        success:
+          type: boolean
+          description: Whether the request succeeded.
+          example: true
+        playerId:
+          type: string
+          description: The player's unique identifier.
+          example: player-500123
+        balance:
+          type: number
+          format: double
+          description: Current wallet balance.
+          example: 125.0
+        currency:
+          type: string
+          description: ISO 4217 three-letter currency code.
+          example: USD
+    BalanceRequest:
+      title: BalanceRequest
+      type: object
+      description: Request body for retrieving a player's wallet balance.
+      required:
+      - merchantId
+      - playerId
+      - hash
+      properties:
+        merchantId:
+          type: string
+          description: The merchant's unique identifier.
+          example: merchant-001
+        playerId:
+          type: string
+          description: The player's unique identifier.
+          example: player-500123
+        hash:
+          type: string
+          description: SHA-256 hash for request authentication.
+          example: c3d4e5f6...
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      description: Error response returned when a request fails.
+      properties:
+        success:
+          type: boolean
+          description: Always false for error responses.
+          example: false
+        errorCode:
+          type: integer
+          description: Numeric error code.
+          example: 400
+        errorMessage:
+          type: string
+          description: Human-readable error description.
+          example: Invalid hash signature.
     AuthResponse:
       title: AuthResponse
       type: object
@@ -395,6 +358,43 @@ components:
           type: string
           description: SHA-256 hash for request authentication.
           example: a1b2c3d4...
+    WithdrawRequest:
+      title: WithdrawRequest
+      type: object
+      description: Request body for withdrawing funds from a player's wallet.
+      required:
+      - merchantId
+      - playerId
+      - amount
+      - currency
+      - transactionId
+      - hash
+      properties:
+        merchantId:
+          type: string
+          description: The merchant's unique identifier.
+          example: merchant-001
+        playerId:
+          type: string
+          description: The player's unique identifier.
+          example: player-500123
+        amount:
+          type: number
+          format: double
+          description: Amount to withdraw in the player's currency.
+          example: 25.0
+        currency:
+          type: string
+          description: ISO 4217 three-letter currency code.
+          example: USD
+        transactionId:
+          type: string
+          description: Unique transaction identifier to prevent duplicate processing.
+          example: txn-def456
+        hash:
+          type: string
+          description: SHA-256 hash for request authentication.
+          example: b2c3d4e5...
   securitySchemes:
     sha256Auth:
       type: apiKey
