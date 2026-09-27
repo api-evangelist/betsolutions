@@ -222,28 +222,43 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    WalletTransactionResponse:
-      title: WalletTransactionResponse
+    DepositRequest:
+      title: DepositRequest
       type: object
-      description: Response for wallet deposit or withdrawal operations.
+      description: Request body for depositing funds to a player's wallet.
+      required:
+      - merchantId
+      - playerId
+      - amount
+      - currency
+      - transactionId
+      - hash
       properties:
-        success:
-          type: boolean
-          description: Whether the transaction succeeded.
-          example: true
-        transactionId:
+        merchantId:
           type: string
-          description: The transaction identifier.
-          example: txn-abc123
-        balance:
+          description: The merchant's unique identifier.
+          example: merchant-001
+        playerId:
+          type: string
+          description: The player's unique identifier.
+          example: player-500123
+        amount:
           type: number
           format: double
-          description: Updated wallet balance after the transaction.
-          example: 150.0
+          description: Amount to deposit in the player's currency.
+          example: 50.0
         currency:
           type: string
           description: ISO 4217 three-letter currency code.
           example: USD
+        transactionId:
+          type: string
+          description: Unique transaction identifier to prevent duplicate processing.
+          example: txn-abc123
+        hash:
+          type: string
+          description: SHA-256 hash for request authentication.
+          example: a1b2c3d4...
     BalanceResponse:
       title: BalanceResponse
       type: object
@@ -266,6 +281,43 @@ components:
           type: string
           description: ISO 4217 three-letter currency code.
           example: USD
+    WithdrawRequest:
+      title: WithdrawRequest
+      type: object
+      description: Request body for withdrawing funds from a player's wallet.
+      required:
+      - merchantId
+      - playerId
+      - amount
+      - currency
+      - transactionId
+      - hash
+      properties:
+        merchantId:
+          type: string
+          description: The merchant's unique identifier.
+          example: merchant-001
+        playerId:
+          type: string
+          description: The player's unique identifier.
+          example: player-500123
+        amount:
+          type: number
+          format: double
+          description: Amount to withdraw in the player's currency.
+          example: 25.0
+        currency:
+          type: string
+          description: ISO 4217 three-letter currency code.
+          example: USD
+        transactionId:
+          type: string
+          description: Unique transaction identifier to prevent duplicate processing.
+          example: txn-def456
+        hash:
+          type: string
+          description: SHA-256 hash for request authentication.
+          example: b2c3d4e5...
     BalanceRequest:
       title: BalanceRequest
       type: object
@@ -321,80 +373,28 @@ components:
           type: string
           description: Unique player identifier.
           example: player-500123
-    DepositRequest:
-      title: DepositRequest
+    WalletTransactionResponse:
+      title: WalletTransactionResponse
       type: object
-      description: Request body for depositing funds to a player's wallet.
-      required:
-      - merchantId
-      - playerId
-      - amount
-      - currency
-      - transactionId
-      - hash
+      description: Response for wallet deposit or withdrawal operations.
       properties:
-        merchantId:
-          type: string
-          description: The merchant's unique identifier.
-          example: merchant-001
-        playerId:
-          type: string
-          description: The player's unique identifier.
-          example: player-500123
-        amount:
-          type: number
-          format: double
-          description: Amount to deposit in the player's currency.
-          example: 50.0
-        currency:
-          type: string
-          description: ISO 4217 three-letter currency code.
-          example: USD
+        success:
+          type: boolean
+          description: Whether the transaction succeeded.
+          example: true
         transactionId:
           type: string
-          description: Unique transaction identifier to prevent duplicate processing.
+          description: The transaction identifier.
           example: txn-abc123
-        hash:
-          type: string
-          description: SHA-256 hash for request authentication.
-          example: a1b2c3d4...
-    WithdrawRequest:
-      title: WithdrawRequest
-      type: object
-      description: Request body for withdrawing funds from a player's wallet.
-      required:
-      - merchantId
-      - playerId
-      - amount
-      - currency
-      - transactionId
-      - hash
-      properties:
-        merchantId:
-          type: string
-          description: The merchant's unique identifier.
-          example: merchant-001
-        playerId:
-          type: string
-          description: The player's unique identifier.
-          example: player-500123
-        amount:
+        balance:
           type: number
           format: double
-          description: Amount to withdraw in the player's currency.
-          example: 25.0
+          description: Updated wallet balance after the transaction.
+          example: 150.0
         currency:
           type: string
           description: ISO 4217 three-letter currency code.
           example: USD
-        transactionId:
-          type: string
-          description: Unique transaction identifier to prevent duplicate processing.
-          example: txn-def456
-        hash:
-          type: string
-          description: SHA-256 hash for request authentication.
-          example: b2c3d4e5...
   securitySchemes:
     sha256Auth:
       type: apiKey
