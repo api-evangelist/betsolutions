@@ -222,6 +222,23 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      description: Error response returned when a request fails.
+      properties:
+        success:
+          type: boolean
+          description: Always false for error responses.
+          example: false
+        errorCode:
+          type: integer
+          description: Numeric error code.
+          example: 400
+        errorMessage:
+          type: string
+          description: Human-readable error description.
+          example: Invalid hash signature.
     DepositRequest:
       title: DepositRequest
       type: object
@@ -259,28 +276,6 @@ components:
           type: string
           description: SHA-256 hash for request authentication.
           example: a1b2c3d4...
-    BalanceResponse:
-      title: BalanceResponse
-      type: object
-      description: Player wallet balance response.
-      properties:
-        success:
-          type: boolean
-          description: Whether the request succeeded.
-          example: true
-        playerId:
-          type: string
-          description: The player's unique identifier.
-          example: player-500123
-        balance:
-          type: number
-          format: double
-          description: Current wallet balance.
-          example: 125.0
-        currency:
-          type: string
-          description: ISO 4217 three-letter currency code.
-          example: USD
     WithdrawRequest:
       title: WithdrawRequest
       type: object
@@ -318,61 +313,6 @@ components:
           type: string
           description: SHA-256 hash for request authentication.
           example: b2c3d4e5...
-    BalanceRequest:
-      title: BalanceRequest
-      type: object
-      description: Request body for retrieving a player's wallet balance.
-      required:
-      - merchantId
-      - playerId
-      - hash
-      properties:
-        merchantId:
-          type: string
-          description: The merchant's unique identifier.
-          example: merchant-001
-        playerId:
-          type: string
-          description: The player's unique identifier.
-          example: player-500123
-        hash:
-          type: string
-          description: SHA-256 hash for request authentication.
-          example: c3d4e5f6...
-    ErrorResponse:
-      title: ErrorResponse
-      type: object
-      description: Error response returned when a request fails.
-      properties:
-        success:
-          type: boolean
-          description: Always false for error responses.
-          example: false
-        errorCode:
-          type: integer
-          description: Numeric error code.
-          example: 400
-        errorMessage:
-          type: string
-          description: Human-readable error description.
-          example: Invalid hash signature.
-    AuthResponse:
-      title: AuthResponse
-      type: object
-      description: Authentication response with private player token.
-      properties:
-        success:
-          type: boolean
-          description: Whether authentication succeeded.
-          example: true
-        token:
-          type: string
-          description: Private player token for subsequent API calls.
-          example: priv-token-xyz789
-        playerId:
-          type: string
-          description: Unique player identifier.
-          example: player-500123
     WalletTransactionResponse:
       title: WalletTransactionResponse
       type: object
@@ -395,6 +335,66 @@ components:
           type: string
           description: ISO 4217 three-letter currency code.
           example: USD
+    BalanceResponse:
+      title: BalanceResponse
+      type: object
+      description: Player wallet balance response.
+      properties:
+        success:
+          type: boolean
+          description: Whether the request succeeded.
+          example: true
+        playerId:
+          type: string
+          description: The player's unique identifier.
+          example: player-500123
+        balance:
+          type: number
+          format: double
+          description: Current wallet balance.
+          example: 125.0
+        currency:
+          type: string
+          description: ISO 4217 three-letter currency code.
+          example: USD
+    BalanceRequest:
+      title: BalanceRequest
+      type: object
+      description: Request body for retrieving a player's wallet balance.
+      required:
+      - merchantId
+      - playerId
+      - hash
+      properties:
+        merchantId:
+          type: string
+          description: The merchant's unique identifier.
+          example: merchant-001
+        playerId:
+          type: string
+          description: The player's unique identifier.
+          example: player-500123
+        hash:
+          type: string
+          description: SHA-256 hash for request authentication.
+          example: c3d4e5f6...
+    AuthResponse:
+      title: AuthResponse
+      type: object
+      description: Authentication response with private player token.
+      properties:
+        success:
+          type: boolean
+          description: Whether authentication succeeded.
+          example: true
+        token:
+          type: string
+          description: Private player token for subsequent API calls.
+          example: priv-token-xyz789
+        playerId:
+          type: string
+          description: Unique player identifier.
+          example: player-500123
   securitySchemes:
     sha256Auth:
       type: apiKey
