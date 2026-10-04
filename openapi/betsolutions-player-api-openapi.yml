@@ -119,58 +119,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
-      title: ErrorResponse
-      type: object
-      description: Error response returned when a request fails.
-      properties:
-        success:
-          type: boolean
-          description: Always false for error responses.
-          example: false
-        errorCode:
-          type: integer
-          description: Numeric error code.
-          example: 400
-        errorMessage:
-          type: string
-          description: Human-readable error description.
-          example: Invalid hash signature.
-    GameListResponse:
-      title: GameListResponse
-      type: object
-      description: Response containing available games and product metadata.
-      properties:
-        success:
-          type: boolean
-          description: Whether the request succeeded.
-          example: true
-        products:
-          type: array
-          description: Array of available game products.
-          items:
-            $ref: '#/components/schemas/Game'
-    PlayerInfoRequest:
-      title: PlayerInfoRequest
-      type: object
-      description: Request body for retrieving player information.
-      required:
-      - merchantId
-      - playerId
-      - hash
-      properties:
-        merchantId:
-          type: string
-          description: The merchant's unique identifier.
-          example: merchant-001
-        playerId:
-          type: string
-          description: The player's unique identifier.
-          example: player-500123
-        hash:
-          type: string
-          description: SHA-256 hash for request authentication.
-          example: e5f6g7h8...
     PlayerInfoResponse:
       title: PlayerInfoResponse
       type: object
@@ -225,6 +173,58 @@ components:
           type: string
           description: SHA-256 hash for request authentication.
           example: d4e5f6g7...
+    PlayerInfoRequest:
+      title: PlayerInfoRequest
+      type: object
+      description: Request body for retrieving player information.
+      required:
+      - merchantId
+      - playerId
+      - hash
+      properties:
+        merchantId:
+          type: string
+          description: The merchant's unique identifier.
+          example: merchant-001
+        playerId:
+          type: string
+          description: The player's unique identifier.
+          example: player-500123
+        hash:
+          type: string
+          description: SHA-256 hash for request authentication.
+          example: e5f6g7h8...
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      description: Error response returned when a request fails.
+      properties:
+        success:
+          type: boolean
+          description: Always false for error responses.
+          example: false
+        errorCode:
+          type: integer
+          description: Numeric error code.
+          example: 400
+        errorMessage:
+          type: string
+          description: Human-readable error description.
+          example: Invalid hash signature.
+    GameListResponse:
+      title: GameListResponse
+      type: object
+      description: Response containing available games and product metadata.
+      properties:
+        success:
+          type: boolean
+          description: Whether the request succeeded.
+          example: true
+        products:
+          type: array
+          description: Array of available game products.
+          items:
+            $ref: '#/components/schemas/Game'
     Game:
       title: Game
       type: object
