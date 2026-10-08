@@ -136,6 +136,12 @@ apis:
   - type: Documentation
     url: https://docs.betsolutions.com/
 common:
+  - type: Plans
+    url: plans/betsolutions-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/betsolutions-rate-limits.yml
+  - type: FinOps
+    url: finops/betsolutions-finops.yml
   - type: AgenticAccess
     url: agentic-access/betsolutions-agentic-access.yml
   - type: DomainSecurity
