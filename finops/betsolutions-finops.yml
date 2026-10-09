@@ -131,10 +131,8 @@ apis:
 unitEconomics:
   - name: Platform Take Rate
     metric: revenue_share / gross_gaming_revenue
-    target: per executed agreement
   - name: Cost per Round
     metric: (revenue_share + integration_fees) / rounds
-    target: minimize via game-mix
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
