@@ -222,30 +222,38 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
-      title: ErrorResponse
+    BalanceResponse:
+      title: BalanceResponse
       type: object
-      description: Error response returned when a request fails.
+      description: Player wallet balance response.
       properties:
         success:
           type: boolean
-          description: Always false for error responses.
-          example: false
-        errorCode:
-          type: integer
-          description: Numeric error code.
-          example: 400
-        errorMessage:
+          description: Whether the request succeeded.
+          example: true
+        playerId:
           type: string
-          description: Human-readable error description.
-          example: Invalid hash signature.
-    BalanceRequest:
-      title: BalanceRequest
+          description: The player's unique identifier.
+          example: player-500123
+        balance:
+          type: number
+          format: double
+          description: Current wallet balance.
+          example: 125.0
+        currency:
+          type: string
+          description: ISO 4217 three-letter currency code.
+          example: USD
+    DepositRequest:
+      title: DepositRequest
       type: object
-      description: Request body for retrieving a player's wallet balance.
+      description: Request body for depositing funds to a player's wallet.
       required:
       - merchantId
       - playerId
+      - amount
+      - currency
+      - transactionId
       - hash
       properties:
         merchantId:
@@ -256,10 +264,23 @@ components:
           type: string
           description: The player's unique identifier.
           example: player-500123
+        amount:
+          type: number
+          format: double
+          description: Amount to deposit in the player's currency.
+          example: 50.0
+        currency:
+          type: string
+          description: ISO 4217 three-letter currency code.
+          example: USD
+        transactionId:
+          type: string
+          description: Unique transaction identifier to prevent duplicate processing.
+          example: txn-abc123
         hash:
           type: string
           description: SHA-256 hash for request authentication.
-          example: c3d4e5f6...
+          example: a1b2c3d4...
     WalletTransactionResponse:
       title: WalletTransactionResponse
       type: object
@@ -319,28 +340,27 @@ components:
           type: string
           description: SHA-256 hash for request authentication.
           example: b2c3d4e5...
-    BalanceResponse:
-      title: BalanceResponse
+    BalanceRequest:
+      title: BalanceRequest
       type: object
-      description: Player wallet balance response.
+      description: Request body for retrieving a player's wallet balance.
+      required:
+      - merchantId
+      - playerId
+      - hash
       properties:
-        success:
-          type: boolean
-          description: Whether the request succeeded.
-          example: true
+        merchantId:
+          type: string
+          description: The merchant's unique identifier.
+          example: merchant-001
         playerId:
           type: string
           description: The player's unique identifier.
           example: player-500123
-        balance:
-          type: number
-          format: double
-          description: Current wallet balance.
-          example: 125.0
-        currency:
+        hash:
           type: string
-          description: ISO 4217 three-letter currency code.
-          example: USD
+          description: SHA-256 hash for request authentication.
+          example: c3d4e5f6...
     AuthResponse:
       title: AuthResponse
       type: object
@@ -358,43 +378,23 @@ components:
           type: string
           description: Unique player identifier.
           example: player-500123
-    DepositRequest:
-      title: DepositRequest
+    ErrorResponse:
+      title: ErrorResponse
       type: object
-      description: Request body for depositing funds to a player's wallet.
-      required:
-      - merchantId
-      - playerId
-      - amount
-      - currency
-      - transactionId
-      - hash
+      description: Error response returned when a request fails.
       properties:
-        merchantId:
+        success:
+          type: boolean
+          description: Always false for error responses.
+          example: false
+        errorCode:
+          type: integer
+          description: Numeric error code.
+          example: 400
+        errorMessage:
           type: string
-          description: The merchant's unique identifier.
-          example: merchant-001
-        playerId:
-          type: string
-          description: The player's unique identifier.
-          example: player-500123
-        amount:
-          type: number
-          format: double
-          description: Amount to deposit in the player's currency.
-          example: 50.0
-        currency:
-          type: string
-          description: ISO 4217 three-letter currency code.
-          example: USD
-        transactionId:
-          type: string
-          description: Unique transaction identifier to prevent duplicate processing.
-          example: txn-abc123
-        hash:
-          type: string
-          description: SHA-256 hash for request authentication.
-          example: a1b2c3d4...
+          description: Human-readable error description.
+          example: Invalid hash signature.
   securitySchemes:
     sha256Auth:
       type: apiKey
