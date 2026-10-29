@@ -1,4 +1,4 @@
-# BetSolutions (betsolutions)
+# BetSolutions
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,195 +66,210 @@
 
 BetSolutions provides a casino and gaming platform API offering a two-way HTTP API with JSON data format for implementing requests and responses for slots, single and multiplayer games, and other casino platform services. The platform supports transfer and seamless wallet integration modes, slot campaigns with freespins, table games, provably fair games, poker, and third-party sportsbook integrations. Authentication uses SHA-256 hash-based signing with merchant secret keys.
 
-**URL:** [https://docs.betsolutions.com/](https://docs.betsolutions.com/)
+**Areas:** Betting · Casinos · Gaming · Gambling · Slots · Sports Betting
 
-**Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=company-api-evangelist&utm_content=repo)
+## BetSolutions on APIs.io
 
-## Tags:
+Everything profiled for BetSolutions is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/betsolutions/](https://apis.io/providers/betsolutions/)** — or go straight to one of the APIs or properties below.
 
- - Betting, Casinos, Gaming, Gambling, Slots, Sports Betting
+### APIs (7)
 
-## Timestamps
+- [BetSolutions Player API](https://apis.io/apis/betsolutions/player-api/) — Player information and data retrieval endpoints including player profile details, rake data by date range, and game list retrieval with product metadata.
+- [BetSolutions Slots API](https://apis.io/apis/betsolutions/slots-api/) — Slot game integration and campaign management including freespin campaign creation, deactivation, configuration retrieval, and player assignment for…
+- [BetSolutions Table Games API](https://apis.io/apis/betsolutions/table-games-api/) — Multiplayer table game integration supporting Backgammon, Bura, Okey, Domino, and Seka. Includes tournament management with types and statuses, and…
+- [BetSolutions Provably Fair Games API](https://apis.io/apis/betsolutions/provably-fair-api/) — Provably fair game integration for Zeppelin, High Low, Dice, Mines, and Plinko. Provides jackpot history, multiplier history, and freebet creation for…
+- [BetSolutions Third-Party Integration API](https://apis.io/apis/betsolutions/third-party-api/) — Third-party sportsbook integration starting with BCBetting, providing bet retrieval, bonus management, and player-specific bonus operations.
+- [BetSolutions Player API](https://apis.io/apis/betsolutions/betsolutions-player-api/) — Player information and game data retrieval
+- [BetSolutions Transfer Wallet API](https://apis.io/apis/betsolutions/betsolutions-transfer-wallet-api/) — BetSolutions-managed wallet operations for transfer mode integration
 
-- **Created:** 2025-02-24
-- **Modified:** 2026-04-19
+### Published properties
 
-## APIs
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### BetSolutions Wallet API
-Two-mode wallet integration for casino operators. Transfer mode provides deposit, withdraw, and balance operations managed by BetSolutions. Seamless mode enables operator-side wallet management with bet, win, cancel bet, change win, and balance endpoints called by BetSolutions on the operator's server.
+#### Agentic access (1)
 
-**Human URL:** [https://docs.betsolutions.com/](https://docs.betsolutions.com/)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags:
+- [Betsolutions Agentic Access](https://apis.io/agentic-access/betsolutions/betsolutions-agentic-access/)
 
- - Wallet, Payments, Transfer, Seamless
+#### JSON Schema (24)
 
-#### Properties
+The data models the API reads and writes.
 
-- [Documentation](https://docs.betsolutions.com/)
-- [OpenAPI](openapi/betsolutions-wallet-api.yaml)
+- [AuthResponse](https://apis.io/schemas/betsolutions/betsolutions-authresponse/)
+- [BalanceRequest](https://apis.io/schemas/betsolutions/betsolutions-balancerequest/)
+- [BalanceResponse](https://apis.io/schemas/betsolutions/betsolutions-balanceresponse/)
+- [DepositRequest](https://apis.io/schemas/betsolutions/betsolutions-depositrequest/)
+- [ErrorResponse](https://apis.io/schemas/betsolutions/betsolutions-errorresponse/)
+- [Game](https://apis.io/schemas/betsolutions/betsolutions-game/)
+- [GameListRequest](https://apis.io/schemas/betsolutions/betsolutions-gamelistrequest/)
+- [GameListResponse](https://apis.io/schemas/betsolutions/betsolutions-gamelistresponse/)
+- [PlayerInfoRequest](https://apis.io/schemas/betsolutions/betsolutions-playerinforequest/)
+- [PlayerInfoResponse](https://apis.io/schemas/betsolutions/betsolutions-playerinforesponse/)
+- [WalletTransactionResponse](https://apis.io/schemas/betsolutions/betsolutions-wallettransactionresponse/)
+- [WithdrawRequest](https://apis.io/schemas/betsolutions/betsolutions-withdrawrequest/)
+- [AuthResponse](https://apis.io/schemas/betsolutions/wallet-api-auth-response/)
+- [BalanceRequest](https://apis.io/schemas/betsolutions/wallet-api-balance-request/)
+- [BalanceResponse](https://apis.io/schemas/betsolutions/wallet-api-balance-response/)
+- [DepositRequest](https://apis.io/schemas/betsolutions/wallet-api-deposit-request/)
+- [ErrorResponse](https://apis.io/schemas/betsolutions/wallet-api-error-response/)
+- [Game](https://apis.io/schemas/betsolutions/wallet-api-game/)
+- [GameListRequest](https://apis.io/schemas/betsolutions/wallet-api-game-list-request/)
+- [GameListResponse](https://apis.io/schemas/betsolutions/wallet-api-game-list-response/)
+- [PlayerInfoRequest](https://apis.io/schemas/betsolutions/wallet-api-player-info-request/)
+- [PlayerInfoResponse](https://apis.io/schemas/betsolutions/wallet-api-player-info-response/)
+- [WalletTransactionResponse](https://apis.io/schemas/betsolutions/wallet-api-wallet-transaction-response/)
+- [WithdrawRequest](https://apis.io/schemas/betsolutions/wallet-api-withdraw-request/)
 
-### BetSolutions Player API
-Player information and data retrieval endpoints including player profile details, rake data by date range, and game list retrieval with product metadata.
+#### JSON Structure (13)
 
-**Human URL:** [https://docs.betsolutions.com/](https://docs.betsolutions.com/)
+Data models expressed in JSON Structure.
 
-#### Tags:
+- [Betsolutions Structure](https://apis.io/json-structure/betsolutions/betsolutions-structure/)
+- [Wallet Api Auth Response Structure](https://apis.io/json-structure/betsolutions/wallet-api-auth-response-structure/)
+- [Wallet Api Balance Request Structure](https://apis.io/json-structure/betsolutions/wallet-api-balance-request-structure/)
+- [Wallet Api Balance Response Structure](https://apis.io/json-structure/betsolutions/wallet-api-balance-response-structure/)
+- [Wallet Api Deposit Request Structure](https://apis.io/json-structure/betsolutions/wallet-api-deposit-request-structure/)
+- [Wallet Api Error Response Structure](https://apis.io/json-structure/betsolutions/wallet-api-error-response-structure/)
+- [Wallet Api Game List Request Structure](https://apis.io/json-structure/betsolutions/wallet-api-game-list-request-structure/)
+- [Wallet Api Game List Response Structure](https://apis.io/json-structure/betsolutions/wallet-api-game-list-response-structure/)
+- [Wallet Api Game Structure](https://apis.io/json-structure/betsolutions/wallet-api-game-structure/)
+- [Wallet Api Player Info Request Structure](https://apis.io/json-structure/betsolutions/wallet-api-player-info-request-structure/)
+- [Wallet Api Player Info Response Structure](https://apis.io/json-structure/betsolutions/wallet-api-player-info-response-structure/)
+- [Wallet Api Wallet Transaction Response Structure](https://apis.io/json-structure/betsolutions/wallet-api-wallet-transaction-response-structure/)
+- [Wallet Api Withdraw Request Structure](https://apis.io/json-structure/betsolutions/wallet-api-withdraw-request-structure/)
 
- - Players, Accounts, Information
+#### JSON-LD (1)
 
-#### Properties
+Linked-data contexts for the provider's vocabulary.
 
-- [Documentation](https://docs.betsolutions.com/)
+- [Betsolutions Wallet Api Context](https://apis.io/jsonld/betsolutions/betsolutions-wallet-api-context/)
 
-### BetSolutions Slots API
-Slot game integration and campaign management including freespin campaign creation, deactivation, configuration retrieval, and player assignment for promotional campaigns.
+#### Vocabulary (1)
 
-**Human URL:** [https://docs.betsolutions.com/](https://docs.betsolutions.com/)
+The provider's domain terms, defined.
 
-#### Tags:
+- [Betsolutions Vocabulary](https://apis.io/vocabularies/betsolutions/betsolutions-vocabulary/)
 
- - Slots, Campaigns, Freespins, Gaming
+#### Examples (18)
 
-#### Properties
+Example requests and responses.
 
-- [Documentation](https://docs.betsolutions.com/)
+- [Betsolutions Authenticateplayer Example](https://apis.io/examples/betsolutions/betsolutions-authenticateplayer-example/)
+- [Betsolutions Depositfunds Example](https://apis.io/examples/betsolutions/betsolutions-depositfunds-example/)
+- [Betsolutions Getbalance Example](https://apis.io/examples/betsolutions/betsolutions-getbalance-example/)
+- [Betsolutions Getgamelist Example](https://apis.io/examples/betsolutions/betsolutions-getgamelist-example/)
+- [Betsolutions Getplayerinfo Example](https://apis.io/examples/betsolutions/betsolutions-getplayerinfo-example/)
+- [Betsolutions Withdrawfunds Example](https://apis.io/examples/betsolutions/betsolutions-withdrawfunds-example/)
+- [Wallet Api Auth Response Example](https://apis.io/examples/betsolutions/wallet-api-auth-response-example/)
+- [Wallet Api Balance Request Example](https://apis.io/examples/betsolutions/wallet-api-balance-request-example/)
+- [Wallet Api Balance Response Example](https://apis.io/examples/betsolutions/wallet-api-balance-response-example/)
+- [Wallet Api Deposit Request Example](https://apis.io/examples/betsolutions/wallet-api-deposit-request-example/)
+- [Wallet Api Error Response Example](https://apis.io/examples/betsolutions/wallet-api-error-response-example/)
+- [Wallet Api Game Example](https://apis.io/examples/betsolutions/wallet-api-game-example/)
+- [Wallet Api Game List Request Example](https://apis.io/examples/betsolutions/wallet-api-game-list-request-example/)
+- [Wallet Api Game List Response Example](https://apis.io/examples/betsolutions/wallet-api-game-list-response-example/)
+- [Wallet Api Player Info Request Example](https://apis.io/examples/betsolutions/wallet-api-player-info-request-example/)
+- [Wallet Api Player Info Response Example](https://apis.io/examples/betsolutions/wallet-api-player-info-response-example/)
+- [Wallet Api Wallet Transaction Response Example](https://apis.io/examples/betsolutions/wallet-api-wallet-transaction-response-example/)
+- [Wallet Api Withdraw Request Example](https://apis.io/examples/betsolutions/wallet-api-withdraw-request-example/)
 
-### BetSolutions Table Games API
-Multiplayer table game integration supporting Backgammon, Bura, Okey, Domino, and Seka. Includes tournament management with types and statuses, and achievement systems for player engagement.
+#### Collections (2)
 
-**Human URL:** [https://docs.betsolutions.com/](https://docs.betsolutions.com/)
+Postman and Open Collection request collections.
 
-#### Tags:
+- [BetSolutions Wallet Player API](https://apis.io/collections/betsolutions/open-betsolutions-player-api/)
+- [BetSolutions Wallet Player Transfer Wallet API](https://apis.io/collections/betsolutions/open-betsolutions-transfer-wallet-api/)
 
- - Table Games, Multiplayer, Tournaments, Gaming
+#### Governance rules (2)
 
-#### Properties
+Spectral rulesets for the provider's contracts.
 
-- [Documentation](https://docs.betsolutions.com/)
+- [BetSolutions — jsonschema rules](https://apis.io/rules/betsolutions/betsolutions-jsonschema-spectral-rules/)
+- [BetSolutions API Rules](https://apis.io/rules/betsolutions/betsolutions-spectral-rules/)
 
-### BetSolutions Provably Fair Games API
-Provably fair game integration for Zeppelin, High Low, Dice, Mines, and Plinko. Provides jackpot history, multiplier history, and freebet creation for provably fair game mechanics.
+#### Security (2)
 
-**Human URL:** [https://docs.betsolutions.com/](https://docs.betsolutions.com/)
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Tags:
+- [Betsolutions Authentication](https://apis.io/security/betsolutions/betsolutions-authentication/)
+- [Betsolutions Domain Security](https://apis.io/security/betsolutions/betsolutions-domain-security/)
 
- - Provably Fair, Zeppelin, Gaming
+#### Plans and pricing (1)
 
-#### Properties
+Published plans, tiers and prices.
 
-- [Documentation](https://docs.betsolutions.com/)
+- [Betsolutions Plans Pricing](https://apis.io/plans/betsolutions/betsolutions-plans-pricing/)
 
-### BetSolutions Third-Party Integration API
-Third-party sportsbook integration starting with BCBetting, providing bet retrieval, bonus management, and player-specific bonus operations.
+#### Rate limits (1)
 
-**Human URL:** [https://docs.betsolutions.com/](https://docs.betsolutions.com/)
+Published request limits.
 
-#### Tags:
+- [Betsolutions Rate Limits](https://apis.io/rate-limits/betsolutions/betsolutions-rate-limits/)
 
- - Sportsbook, BCBetting, Integration
+#### FinOps (1)
 
-#### Properties
+What the API costs to run, by operation.
 
-- [Documentation](https://docs.betsolutions.com/)
+- [Betsolutions Finops](https://apis.io/finops/betsolutions/betsolutions-finops/)
 
-## Common Properties
+## Where to find this API
 
-- [Documentation](https://docs.betsolutions.com/)
-- [Authentication](https://docs.betsolutions.com/)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://betsolutions.com)
-- [SDK - .NET SDK (NuGet)](https://www.nuget.org/packages/BetSolutions)
-- [SDK - PHP SDK (Composer)](https://packagist.org/packages/betsolutions/casino-api)
-- [SpectralRules](rules/betsolutions-spectral-rules.yml)
-- [NaftikoCapability](capabilities/casino-platform.yaml)
-- [Vocabulary](vocabulary/betsolutions-vocabulary.yaml)
+- [Documentation](https://docs.betsolutions.com/)
+- [GitHub](https://github.com/betsolutions-llc)
 
-## Features
+## API Evangelist rating
 
-| Name | Description |
-|------|-------------|
-| Transfer Wallet Mode | BetSolutions-managed wallet with deposit, withdraw, and balance operations for casino operators. |
-| Seamless Wallet Mode | Operator-side wallet integration where BetSolutions calls the operator's server for bet, win, and balance operations. |
-| SHA-256 Authentication | Secure request signing using SHA-256 hash algorithm with merchant secret keys and pipe-separated parameter concatenation. |
-| Slot Games | Slot game integration with freespin campaign management, player assignment, and campaign configuration. |
-| Table Games | Multiplayer table games including Backgammon, Bura, Okey, Domino, and Seka with tournament support. |
-| Provably Fair Games | Cryptographically verifiable games including Zeppelin, High Low, Dice, Mines, and Plinko. |
-| Poker | Poker integration with jackpot tracking and daily financial reporting. |
-| Third-Party Sportsbook | Integration with BCBetting sportsbook platform for bet and bonus management. |
-| SDK Packages | Official SDK packages available for .NET (NuGet), PHP (Composer), and Java (JAR) platforms. |
-| Multi-Language Support | API supports 11 languages for international casino operator deployments. |
-| Multi-Currency Support | ISO 4217 currency codes for international payment processing. |
+**Kin Score 22.5** — emerging · rubric 0.24.0 · scored 2026-10-17
 
-## Use Cases
+| Facet | Score |
+|---|---|
+| Discoverability | 62.5 |
+| Contract quality | 22.4 |
+| Contract governance | 27.3 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 28.6 |
+| Access clarity | 5.3 |
 
-| Name | Description |
-|------|-------------|
-| Casino Platform Integration | Online casino operators integrate BetSolutions APIs to offer slots, table games, and card games to players. |
-| Wallet Integration | Casino operators choose transfer or seamless wallet mode to manage player funds and game transactions. |
-| Freespin Campaigns | Marketing teams create and manage freespin slot campaigns to acquire and retain players. |
-| Tournament Management | Operators run tournaments for multiplayer table games with configurable types and prize structures. |
-| Provably Fair Gaming | Platforms offering cryptographically verifiable game results using BetSolutions' provably fair API. |
-| Sportsbook Integration | Operators add sports betting capabilities through the BCBetting third-party integration. |
+**Agent readiness 28.7** — agent-ready
 
-## Integrations
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
 
-| Name | Description |
-|------|-------------|
-| BCBetting | Third-party sportsbook integration providing sports betting functionality for casino operators. |
-| NuGet Package Manager | .NET SDK available via NuGet for easy integration in .NET casino platform backends. |
-| Composer Package Manager | PHP SDK available via Composer for PHP-based casino platform implementations. |
-| Java JAR | Java SDK available as a JAR package for Java-based casino platform implementations. |
+**Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
 
-## Artifacts
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/betsolutions/](https://apis.io/providers/betsolutions/).
 
-Machine-readable API specifications organized by format.
+## How this profile is made
 
-### OpenAPI
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
 
-- [BetSolutions Wallet API](openapi/betsolutions-wallet-api.yaml)
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for BetSolutions: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
 
-### JSON Schema
+## Open an issue
 
-- [wallet-api-auth-response-schema.json](json-schema/wallet-api-auth-response-schema.json)
-- [wallet-api-deposit-request-schema.json](json-schema/wallet-api-deposit-request-schema.json)
-- [wallet-api-withdraw-request-schema.json](json-schema/wallet-api-withdraw-request-schema.json)
-- [wallet-api-balance-request-schema.json](json-schema/wallet-api-balance-request-schema.json)
-- [wallet-api-balance-response-schema.json](json-schema/wallet-api-balance-response-schema.json)
-- [wallet-api-wallet-transaction-response-schema.json](json-schema/wallet-api-wallet-transaction-response-schema.json)
-- [wallet-api-game-list-response-schema.json](json-schema/wallet-api-game-list-response-schema.json)
-- [wallet-api-game-schema.json](json-schema/wallet-api-game-schema.json)
-- [wallet-api-player-info-response-schema.json](json-schema/wallet-api-player-info-response-schema.json)
-
-### JSON-LD
-
-- [betsolutions-wallet-api-context.jsonld](json-ld/betsolutions-wallet-api-context.jsonld)
-
-## Capabilities
-
-Naftiko capabilities organized as shared per-API definitions composed into customer-facing workflows.
-
-### Shared Per-API Definitions
-
-- [BetSolutions Wallet API](capabilities/shared/wallet-api.yaml) — 5 operations for casino wallet and game management
-
-### Workflow Capabilities
-
-| Workflow | APIs Combined | Tools | Persona |
-|----------|--------------|-------|---------|
-| [Casino Platform](capabilities/casino-platform.yaml) | Wallet, Player, Games | 5 | Casino Operator, Platform Developer |
-
-## Vocabulary
-
-- [BetSolutions Vocabulary](vocabulary/betsolutions-vocabulary.yaml) — Unified taxonomy mapping 3 resources, 6 actions, 1 workflow, and 2 personas across operational (OpenAPI) and capability (Naftiko) dimensions
-
-## Rules
-
-- [BetSolutions Spectral Rules](rules/betsolutions-spectral-rules.yml) — 25 rules across 9 categories enforcing BetSolutions API conventions
-
-## Maintainers
-
-**FN:** Kin Lane
-
-**Email:** kin@apievangelist.com
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/betsolutions/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
